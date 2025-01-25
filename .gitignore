@@ -1,0 +1,13 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+# Ignore IntelliJ IDEA files
+.idea/
+*.iml
+
+# Other common ignored files (optional)
+.DS_Store
