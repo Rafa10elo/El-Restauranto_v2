@@ -8,8 +8,8 @@ import java.util.Map;
 public class Order {
     private HashMap<Meal, Integer> meals;
     // -------------------------------------------------------------change float to double
-    private float totalPrice = 0;
-    private float tip;
+    private double totalPrice = 0;
+    private double tip;
     private Status state;
     private LocalDateTime timeOfDelivery;
     private String paymentId;
@@ -19,7 +19,7 @@ public class Order {
 
     public enum Status {PREPARING, DELIVERED, CANCELED}
 
-    public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state,String username,Boolean inRestaurant) {
+    public Order(HashMap<Meal, Integer> meals, double totalPrice, double tip, Status state,String username,Boolean inRestaurant) {
         this.meals = new HashMap<>(meals);
         this.tip = tip;
         this.state = state;
@@ -30,7 +30,7 @@ public class Order {
         this.inRestaurant=inRestaurant;
     }
 
-    public Order(HashMap<Meal, Integer> meals, float totalPrice, float tip, Status state,
+    public Order(HashMap<Meal, Integer> meals, double totalPrice, double tip, Status state,
                  LocalDateTime timeOfDelivery, String paymentId,String username,Boolean inRestaurant) {
         this.meals = new HashMap<>(meals);
         this.totalPrice = totalPrice;
@@ -56,7 +56,7 @@ public class Order {
         return meals;
     }
 
-    public float getTotalPrice() {
+    public double getTotalPrice() {
         return totalPrice;
     }
 
@@ -68,7 +68,7 @@ public class Order {
         return notification;
     }
 
-    public float getTip() {
+    public double getTip() {
         return tip;
     }
 
@@ -188,8 +188,8 @@ public class Order {
                 }
             }
 
-            float totalPrice = Float.parseFloat(orderParts[1]);
-            float tip = Float.parseFloat(orderParts[2]);
+            double totalPrice = Double.parseDouble(orderParts[1]);
+            double tip = Double.parseDouble(orderParts[2]);
             Status state = Status.valueOf(orderParts[3]);
             LocalDateTime timeOfDelivery = null;
 

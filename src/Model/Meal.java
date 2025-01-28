@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Meal {
     String mealName;
     String ingredients;
-    float price;
+    double price;
     String imgSrc;
 
     public void setIngredients(String ingredients) {
@@ -24,7 +24,7 @@ public class Meal {
         this.mealName = mealName;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -41,7 +41,7 @@ public class Meal {
         return imgSrc;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -49,7 +49,7 @@ public class Meal {
         return mealName;
     }
 
-    public Meal(String mealName, String ingredients, float price, String imgSrc) {
+    public Meal(String mealName, String ingredients, double price, String imgSrc) {
         this.mealName = mealName;
         this.ingredients = ingredients;
         this.price = price;
@@ -61,7 +61,7 @@ public class Meal {
             String[] mealStrings = str.split("&@");
             String mealName = mealStrings[0];
             String ingredients = mealStrings[1];
-            float price = Float.parseFloat(mealStrings[2]);
+            double price = Double.parseDouble(mealStrings[2]);
 
             // checking the path for the img
             String imgSrc;
@@ -93,7 +93,7 @@ public class Meal {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Meal meal = (Meal) o;
-        return Float.compare(meal.price, price) == 0 &&
+        return Double.compare(meal.price, price) == 0 &&
                 Objects.equals(mealName, meal.mealName) &&
                 Objects.equals(ingredients, meal.ingredients) &&
                 Objects.equals(imgSrc, meal.imgSrc);

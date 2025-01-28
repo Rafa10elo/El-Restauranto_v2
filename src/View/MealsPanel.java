@@ -11,6 +11,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.math.BigDecimal;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,7 +99,9 @@ public class MealsPanel extends JPanel {
             //edit label in hashmap
             sidePanel.mealsCntLabels.get(meal).setText(":   " + String.valueOf(sidePanel.orderMeals.get(meal)));
             //edit total price
-            sidePanel.totalPriceNumber+=meal.getPrice();
+//            sidePanel.totalPriceNumber+=meal.getPrice();
+//            sidePanel.totalPriceNumber = Double.sum(sidePanel.totalPriceNumber, meal.getPrice()) ;
+            sidePanel.totalPriceNumber = sidePanel.totalPriceNumber.add(BigDecimal.valueOf(meal.getPrice())) ;
             sidePanel.totalPrice.setText(String.valueOf(sidePanel.totalPriceNumber ));
             sidePanel.mealsCntLabels.get(meal).revalidate();
             sidePanel.mealsCntLabels.get(meal).repaint();
@@ -212,7 +215,11 @@ public class MealsPanel extends JPanel {
                         @Override
                         public void actionPerformed(ActionEvent e) {
 //                            float newTotalPrice = Float.parseFloat(sidePanel.totalPrice.getText()) - meal.getPrice() * sidePanel.orderMeals.get(meal) ;
-                            sidePanel.totalPriceNumber -= meal.getPrice() * sidePanel.orderMeals.get(meal);
+//                            sidePanel.totalPriceNumber -= meal.getPrice() * sidePanel.orderMeals.get(meal);
+//                            System.out.println(Double.min(sidePanel.totalPriceNumber, meal.getPrice() * sidePanel.orderMeals.get(meal)));
+//                            sidePanel.totalPriceNumber = Double.sum(sidePanel.totalPriceNumber, meal.getPrice() * sidePanel.orderMeals.get(meal) * (-1)) ;
+                            sidePanel.totalPriceNumber = sidePanel.totalPriceNumber.subtract(BigDecimal.valueOf(meal.getPrice() * sidePanel.orderMeals.get(meal)));
+                            System.out.println(sidePanel.totalPriceNumber);
                             sidePanel.totalPrice.setText(String.valueOf( sidePanel.totalPriceNumber ));
 
                             // delete from view
@@ -237,7 +244,9 @@ public class MealsPanel extends JPanel {
 
         sidePanel.centerPanel.add(mealPanel) ;
         sidePanel.centerPanel.add(smallGap) ;
-        sidePanel.totalPriceNumber += meal.getPrice();
+//        sidePanel.totalPriceNumber += meal.getPrice();
+//        sidePanel.totalPriceNumber = Double.sum(sidePanel.totalPriceNumber, meal.getPrice()) ;
+        sidePanel.totalPriceNumber = sidePanel.totalPriceNumber.add(BigDecimal.valueOf(meal.getPrice())) ;
         sidePanel.totalPrice.setText(String.valueOf( sidePanel.totalPriceNumber)) ;
         sidePanel.revalidate();
         sidePanel.repaint();
@@ -572,7 +581,7 @@ public class MealsPanel extends JPanel {
     public Meal getEditedMealInfo() {
         String path = imgSrcEdit.getText().replace("\\", "/");
         Meal meal = new Meal( nameEdit.getText(), ingredientsEdit.getText(),
-                Float.parseFloat(priceEdit.getText()), path) ;
+                Double.parseDouble(priceEdit.getText()), path) ;
         return meal;
     }
     public MealPanel getMealPanel(Meal meal) {

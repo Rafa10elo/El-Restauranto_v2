@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 public class SidePanel extends JPanel {
@@ -23,9 +24,10 @@ public class SidePanel extends JPanel {
 
     // order info
 
-    float totalPriceNumber = 0;
+//    double totalPriceNumber = 0;
+    BigDecimal totalPriceNumber = new BigDecimal("0.0") ;
     JLabel totalPrice = new JLabel(String.valueOf(totalPriceNumber)) ;
-    Float[] tips = new Float[] {0.0f, 5.0f, 10.0f, 15.0f} ;
+    Double[] tips = new Double[] {0.0d, 5.0d, 10.0d, 15.0d} ;
     JComboBox tipsCombo = new JComboBox(tips) ;
     JPanel centerPanel;
     HashMap<Meal, Integer> orderMeals = new HashMap<>();
@@ -467,7 +469,7 @@ public class SidePanel extends JPanel {
     }
     public void orderReset(){
 
-        totalPriceNumber=0;
+        totalPriceNumber= new BigDecimal("0.0") ;
         totalPrice.setText(String.valueOf(totalPriceNumber));
         centerPanel.removeAll();
         tipsCombo.setSelectedIndex(0);
@@ -514,7 +516,7 @@ public class SidePanel extends JPanel {
         gbc.gridheight = 1;
         gbc.weightx = 2.0;
         gbc.weighty = 1.0;
-        JLabel totalPrice = new JLabel(String.valueOf(totalPriceNumber + (float) tipsCombo.getSelectedItem() ) ) ;
+        JLabel totalPrice = new JLabel(String.valueOf(totalPriceNumber.add(BigDecimal.valueOf((double) tipsCombo.getSelectedItem())) ) ) ;
         totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
         totalPrice.setForeground(MainFrame.orange);
         paymentDialog.add(totalPrice, gbc);
@@ -721,8 +723,8 @@ public class SidePanel extends JPanel {
         return nameField.getText();
     }
 
-    public Float getPriceField() {
-        return Float.parseFloat(priceField.getText());
+    public double getPriceField() {
+        return Double.parseDouble(priceField.getText());
     }
 
     public String  getIngredientsField() {
@@ -747,8 +749,9 @@ public class SidePanel extends JPanel {
     public JTextField getCreditCardId() {
         return creditCardId;
     }
-    public Float getPaymentAmount() {
-        return (float) (totalPriceNumber + tips[tipsCombo.getSelectedIndex()] ) ;
+    public double getPaymentAmount() {
+//        return (double) (totalPriceNumber + tips[tipsCombo.getSelectedIndex()] ) ;
+        return totalPriceNumber.add(BigDecimal.valueOf((double) tipsCombo.getSelectedItem())).doubleValue() ;
     }
     public JButton getPayButton() {
         return pay;
@@ -756,11 +759,12 @@ public class SidePanel extends JPanel {
     public JButton getResetOrderButton() {
         return resetOrder;
     }
-    public Float getTotalPrice() {
-        return totalPriceNumber;
+    public double getTotalPrice() {
+//        return totalPriceNumber;
+        return totalPriceNumber.doubleValue();
     }
-    public Float getTips() {
-        return (float) tipsCombo.getSelectedItem();
+    public double getTips() {
+        return (double) tipsCombo.getSelectedItem();
     }
     public HashMap<Meal, Integer> getOrderMeals() {
         return orderMeals;
