@@ -132,6 +132,7 @@ public class SidePanel extends JPanel {
                     nameField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 }
             });
+            nameField.addActionListener(e -> priceField.requestFocus());
             centerPanel.add(nameField, gbc);
 
             //price :
@@ -200,6 +201,7 @@ public class SidePanel extends JPanel {
                     }
                 }
             });
+            priceField.addActionListener(e -> ingredientsField.requestFocus());
             centerPanel.add(priceField, gbc);
 
             // ingredients
@@ -245,6 +247,7 @@ public class SidePanel extends JPanel {
                     ingredientsField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 }
             });
+            ingredientsField.addActionListener(e -> imgSrcField.requestFocus());
             centerPanel.add(ingredientsField, gbc);
 
             // img src
@@ -292,6 +295,7 @@ public class SidePanel extends JPanel {
                     imgSrcField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 }
             });
+            imgSrcField.addActionListener(e -> addMeal.doClick());
             centerPanel.add(imgSrcField, gbc);
 
             add(centerPanel, BorderLayout.CENTER);

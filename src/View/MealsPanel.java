@@ -326,6 +326,7 @@ public class MealsPanel extends JPanel {
                 nameEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
             }
         });
+        nameEdit.addActionListener(e -> priceEdit.requestFocus());
         editMealPanel.add(nameEdit, gbc) ;
 
         //price :
@@ -390,6 +391,7 @@ public class MealsPanel extends JPanel {
                 }
             }
         });
+        priceEdit.addActionListener(e -> ingredientsEdit.requestFocus());
         editMealPanel.add(priceEdit, gbc) ;
 
         // ingredients
@@ -435,6 +437,7 @@ public class MealsPanel extends JPanel {
                 ingredientsEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
             }
         });
+        ingredientsEdit.addActionListener(e -> imgSrcEdit.requestFocus());
         editMealPanel.add(ingredientsEdit, gbc) ;
 
         // img src
@@ -479,6 +482,7 @@ public class MealsPanel extends JPanel {
                 imgSrcEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
             }
         });
+        imgSrcEdit.addActionListener(e -> editMeal.doClick());
         editMealPanel.add(imgSrcEdit, gbc) ;
 
         gbc.gridx = 0;

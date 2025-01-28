@@ -56,6 +56,7 @@ public class RegisterPanel extends JPanel {
         gbc.gridx = 1;
         userField.setFont(fieldsFont);
         userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        userField.addActionListener(e -> emailField.requestFocus());
         centralPanel.add(userField, gbc);
 
         JLabel emailLabel = createJLabel("Email:", gbc, 0, 1);
@@ -94,6 +95,7 @@ public class RegisterPanel extends JPanel {
             }
         });
 
+        emailField.addActionListener(e -> passField.requestFocus());
         centralPanel.add(emailField, gbc);
 
         JLabel passLabel = createJLabel("Password:", gbc, 0, 2);
@@ -162,7 +164,9 @@ public class RegisterPanel extends JPanel {
 
             }
         });
+        passField.addActionListener(e -> passCheckField.requestFocus());
         passwordEntryPanel.add(passField,gbc1);
+
         JCheckBox showPasswordCheckbox = new JCheckBox();
         showPasswordCheckbox.setForeground(MainFrame.orange);
         showPasswordCheckbox.setFont(MainFrame.fontRegular);
@@ -230,6 +234,7 @@ public class RegisterPanel extends JPanel {
         gbc1.gridwidth = 10;
         gbc1.gridheight = 1;
         gbc1.fill=GridBagConstraints.BOTH;
+        passCheckField.addActionListener(e -> registerButton.doClick());
         passwordEntryPanel1.add(passCheckField,gbc1);
 
         JCheckBox showPasswordCheckCheckbox = new JCheckBox();
@@ -293,6 +298,7 @@ public class RegisterPanel extends JPanel {
         gbc.gridx = 1;
         gbc.insets = new Insets(5, 30, 5, 10);
         optionalField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        optionalField.addActionListener(e -> registerButton.doClick());
         centralPanel.add(optionalField, gbc);
 
         gbc.insets = new Insets(20, 20, 20, 20);

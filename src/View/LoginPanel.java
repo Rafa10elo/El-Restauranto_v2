@@ -41,6 +41,7 @@ public class LoginPanel extends JPanel {
         gbc.gridx = 1;
         userField.setFont(LoginAndRegistrationFrame.fieldsFont);
         userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        userField.addActionListener(e -> passField.requestFocus());
 
         centralPanel.add(userField, gbc);
 
@@ -61,6 +62,7 @@ public class LoginPanel extends JPanel {
         gbc1.gridwidth = 10;
         gbc1.gridheight = 1;
         gbc1.fill=GridBagConstraints.BOTH;
+        passField.addActionListener(e -> loginButton.doClick());
         passwordEntryPanel.add(passField,gbc1);
 
 //        centralPanel.add(passField, gbc);

@@ -108,6 +108,7 @@ public class ProfilePanel extends JPanel {
         editUsernameTextField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 0;
+        editUsernameTextField.addActionListener(e -> editEmailField.requestFocus());
         editPanel.add(editUsernameTextField, gbc);
 
 
@@ -123,6 +124,7 @@ public class ProfilePanel extends JPanel {
         editEmailField.setFont(fieldsFont.deriveFont(30f));
         gbc.gridx = 1;
         gbc.gridy = 1;
+        editEmailField.addActionListener(e -> editPasswordField.requestFocus());
         editPanel.add(editEmailField, gbc);
 
 
@@ -185,6 +187,7 @@ public class ProfilePanel extends JPanel {
 
         }
     });
+        editPasswordField.addActionListener(e -> editProfileButton.doClick());
         editPanel.add(editPasswordField, gbc);
 
         cardPanel.add(mainPanel, "main");
