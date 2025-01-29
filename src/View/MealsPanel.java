@@ -44,6 +44,7 @@ public class MealsPanel extends JPanel {
         mainMenu.setBorder(new EmptyBorder(10, 10, 10, 10));
         JScrollPane scrollMainMenu = new JScrollPane(mainMenu);
         scrollMainMenu.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollMainMenu.getVerticalScrollBar().setUnitIncrement(10);
         add(scrollMainMenu, BorderLayout.CENTER) ;
     }
 

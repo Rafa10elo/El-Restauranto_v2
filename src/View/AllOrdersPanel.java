@@ -183,6 +183,7 @@ public class AllOrdersPanel extends JPanel {
         multiMealScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         multiMealScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         multiMealScrollPane.setBorder(null);
+        multiMealScrollPane.getHorizontalScrollBar().setUnitIncrement(10);
         orderPanel.add(multiMealScrollPane, BorderLayout.CENTER);
 
         timerManager.showRemainingTime(user,order,timeLabel, stateLabel,timeTagLabel,this);
@@ -207,6 +208,7 @@ public class AllOrdersPanel extends JPanel {
         scrollPane.setVerticalScrollBar(new JScrollBar());
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         miniAllOrdersPanel.setBorder(new EmptyBorder(0,30,0,30));
+        scrollPane.getVerticalScrollBar().setUnitIncrement(10);
         add(scrollPane,BorderLayout.CENTER);
 
         this.miniAllOrdersPanel = miniAllOrdersPanel;
