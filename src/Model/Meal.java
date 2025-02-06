@@ -105,7 +105,7 @@ public class Meal {
     }
 
     public boolean saveImgToProject() {
-        if(!imgSrc.contains("src/pics")){
+        if(!imgSrc.contains("src/pics") ){
             try{
                 BufferedImage localImg = ImageIO.read(new File(imgSrc));
                 File file = new File("src/pics", new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-SSS").format(new Date()) + ".jpg");

@@ -25,7 +25,7 @@ public class MealPanel extends JPanel {
         // meal image
         JPanel mealPhoto = new JPanel() ;
         mealPhoto.setBackground(MainFrame.darkGray);
-        Image img = Toolkit.getDefaultToolkit().getImage(meal.getImgSrc()).getScaledInstance(275, 200, Image.SCALE_SMOOTH) ;
+        Image img = Toolkit.getDefaultToolkit().getImage(meal.getImgSrc()).getScaledInstance(350, 200, Image.SCALE_SMOOTH) ;
         imgLabel = new JLabel(new ImageIcon(img)) ;
         mealPhoto.add(imgLabel) ;
 
@@ -148,8 +148,7 @@ public class MealPanel extends JPanel {
     }
     public void setMealInfo(Meal mealEdited) {
         this.meal = mealEdited ;
-        Image img = Toolkit.getDefaultToolkit().getImage(mealEdited.getImgSrc()).getScaledInstance(this.getWidth() - 20, 200, Image.SCALE_SMOOTH) ;
-
+        Image img = Toolkit.getDefaultToolkit().getImage(mealEdited.getImgSrc()).getScaledInstance(350, 200, Image.SCALE_SMOOTH) ;
         imgLabel.setIcon(new ImageIcon(img)); ;
 
         this.mealName.setText(mealEdited.getMealName());

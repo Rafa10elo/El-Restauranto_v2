@@ -6,6 +6,8 @@ import Model.User;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -18,7 +20,9 @@ public class SidePanel extends JPanel {
     JTextField nameField;
     JTextField priceField;
     JTextField ingredientsField;
-    JTextField imgSrcField;
+    String imgSrc;
+    Image img;
+    JLabel imgLabel;
     JButton addMeal ;
 
 
@@ -46,7 +50,7 @@ public class SidePanel extends JPanel {
     public SidePanel(User user) {
         setLayout(new BorderLayout());
         setBackground(MainFrame.darkGray);
-        setPreferredSize(new Dimension(350, this.getHeight()));
+        setPreferredSize(new Dimension(400, this.getHeight()));
         setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, MainFrame.orange));
 
         // top panel
@@ -75,38 +79,132 @@ public class SidePanel extends JPanel {
         centerPanel = new JPanel();
         if (user.getUserType() == 0) {
             // order meals
-            //centerPanel.setPreferredSize(new Dimension(330, (mealsCntLabels.size() * 500)));
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
             centerPanel.setBorder(new EmptyBorder(5, 15, 5, 15));
             centerPanel.setBackground(MainFrame.darkGray);
             add(new JScrollPane(centerPanel), BorderLayout.CENTER);
         }
         else {
-            // name, price,ingredients and img path text fields
-            centerPanel.setLayout(new GridBagLayout());
-            centerPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
+            centerPanel.setLayout(new BorderLayout());
             centerPanel.setBackground(MainFrame.darkGray);
+
+            // meal image
+            JPanel mealPhoto = new JPanel() ;
+            mealPhoto.setBackground(MainFrame.darkGray);
+            imgSrc = "src/pics/default.jpg" ;
+            img = Toolkit.getDefaultToolkit().getImage(imgSrc);
+            imgLabel = new JLabel(new ImageIcon(img));
+            imgLabel.setPreferredSize(new Dimension(350, 200));
+            mealPhoto.add(imgLabel) ;
+            centerPanel.add(mealPhoto, BorderLayout.NORTH) ;
+
+            // name, price,ingredients fields and img file chooser
+            JPanel infoPanel = new JPanel() ;
+            infoPanel.setLayout(new GridBagLayout());
+            infoPanel.setBorder(new EmptyBorder(0, 20, 20, 20));
+            infoPanel.setBackground(MainFrame.darkGray);
             GridBagConstraints gbc = new GridBagConstraints();
 
-            // name
+            //add image button (file chooser)
             gbc.gridx = 0;
             gbc.gridy = 0;
             gbc.gridwidth = 1;
             gbc.gridheight = 1;
             gbc.weightx = 1.0;
             gbc.weighty = 1.0;
+            gbc.fill = GridBagConstraints.NONE;
+            JButton addImgButton = new JButton(" add Image ");
+            addImgButton.setPreferredSize(new Dimension(150, 50));
+            addImgButton.setForeground(MainFrame.orange);
+            addImgButton.setFont(MainFrame.fontBold);
+            addImgButton.setBackground(MainFrame.darkGray);
+            addImgButton.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            addImgButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    JFileChooser fileChooser = new JFileChooser();
+                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                    FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif",".bmp");
+                    fileChooser.setFileFilter(filter);
+                    fileChooser.setAcceptAllFileFilterUsed(false);
+
+                    int returnValue = fileChooser.showOpenDialog(null);
+                    if (returnValue == JFileChooser.APPROVE_OPTION) {
+                        imgSrc = fileChooser.getSelectedFile().getPath() ;
+                        img = Toolkit.getDefaultToolkit().getImage(imgSrc).getScaledInstance(350, 200, Image.SCALE_SMOOTH);
+                        imgLabel.setIcon(new ImageIcon(img));
+                        imgLabel.repaint();
+                        imgLabel.revalidate();
+                        System.out.println(imgSrc);
+                    }
+                }
+            });
+            addImgButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    addImgButton.setBorder(new LineBorder(MainFrame.orange, 1));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    addImgButton.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                }
+            });
+            infoPanel.add(addImgButton, gbc);
+
+            //reset button
+            gbc.gridx = 1;
+            gbc.gridy = 0;
+            gbc.gridwidth = 1;
+            gbc.gridheight = 1;
+            gbc.weightx = 1.0;
+            gbc.weighty = 1.0;
+            gbc.fill = GridBagConstraints.NONE;
+            JButton resetNewMeal = new JButton(" reset ");
+            resetNewMeal.setPreferredSize(new Dimension(150, 50));
+            resetNewMeal.setForeground(MainFrame.orange);
+            resetNewMeal.setFont(MainFrame.fontBold);
+            resetNewMeal.setBackground(MainFrame.darkGray);
+            resetNewMeal.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            resetNewMeal.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    newMealReset();
+                }
+            });
+            resetNewMeal.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    resetNewMeal.setBorder(new LineBorder(MainFrame.orange, 1));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    resetNewMeal.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                }
+            });
+            infoPanel.add(resetNewMeal, gbc);
+
+            // name
+            gbc.gridx = 0;
+            gbc.gridy = 1;
+            gbc.gridwidth = 2;
+            gbc.gridheight = 1;
+            gbc.weightx = 2.0;
+            gbc.weighty = 1.0;
             gbc.fill = GridBagConstraints.BOTH;
             JLabel name = new JLabel("name :");
             name.setForeground(MainFrame.orange);
             name.setFont(MainFrame.fontBold);
             name.setBackground(MainFrame.darkGray);
-            centerPanel.add(name, gbc);
+            infoPanel.add(name, gbc);
 
             gbc.gridx = 0;
-            gbc.gridy = 1;
-            gbc.gridwidth = 1;
+            gbc.gridy = 2;
+            gbc.gridwidth = 2;
             gbc.gridheight = 1;
-            gbc.weightx = 1.0;
+            gbc.weightx = 2.0;
             gbc.weighty = 0.1;
             nameField = new JTextField("name");
             nameField.setFont(MainFrame.fontBold.deriveFont(20f));
@@ -133,27 +231,27 @@ public class SidePanel extends JPanel {
                 }
             });
             nameField.addActionListener(e -> priceField.requestFocus());
-            centerPanel.add(nameField, gbc);
+            infoPanel.add(nameField, gbc);
 
             //price :
             gbc.gridx = 0;
-            gbc.gridy = 2;
-            gbc.gridwidth = 1;
+            gbc.gridy = 3;
+            gbc.gridwidth = 2;
             gbc.gridheight = 1;
-            gbc.weightx = 1.0;
+            gbc.weightx = 2.0;
             gbc.weighty = 1.0;
             gbc.fill = GridBagConstraints.BOTH;
             JLabel price = new JLabel("price : ($)");
             price.setForeground(MainFrame.orange);
             price.setFont(MainFrame.fontBold);
             price.setBackground(MainFrame.darkGray);
-            centerPanel.add(price, gbc);
+            infoPanel.add(price, gbc);
 
             gbc.gridx = 0;
-            gbc.gridy = 3;
-            gbc.gridwidth = 1;
+            gbc.gridy = 4;
+            gbc.gridwidth = 2;
             gbc.gridheight = 1;
-            gbc.weightx = 1.0;
+            gbc.weightx = 2.0;
             gbc.weighty = 0.1;
             priceField = new JTextField("price");
             priceField.setFont(MainFrame.fontBold.deriveFont(20f));
@@ -202,26 +300,26 @@ public class SidePanel extends JPanel {
                 }
             });
             priceField.addActionListener(e -> ingredientsField.requestFocus());
-            centerPanel.add(priceField, gbc);
+            infoPanel.add(priceField, gbc);
 
             // ingredients
             gbc.gridx = 0;
-            gbc.gridy = 4;
-            gbc.gridwidth = 1;
+            gbc.gridy = 5;
+            gbc.gridwidth = 2;
             gbc.gridheight = 1;
-            gbc.weightx = 1.0;
+            gbc.weightx = 2.0;
             gbc.weighty = 1.0;
             JLabel ingredients = new JLabel("ingredients :");
             ingredients.setForeground(MainFrame.orange);
             ingredients.setFont(MainFrame.fontBold);
             ingredients.setBackground(MainFrame.darkGray);
-            centerPanel.add(ingredients, gbc);
+            infoPanel.add(ingredients, gbc);
 
             gbc.gridx = 0;
-            gbc.gridy = 5;
-            gbc.gridwidth = 1;
+            gbc.gridy = 6;
+            gbc.gridwidth = 2;
             gbc.gridheight = 1;
-            gbc.weightx = 1.0;
+            gbc.weightx = 2.0;
             gbc.weighty = 0.1;
             ingredientsField = new JTextField("ingredients");
             ingredientsField.setFont(MainFrame.fontBold.deriveFont(20f));
@@ -247,57 +345,83 @@ public class SidePanel extends JPanel {
                     ingredientsField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
                 }
             });
-            ingredientsField.addActionListener(e -> imgSrcField.requestFocus());
-            centerPanel.add(ingredientsField, gbc);
+            ingredientsField.addActionListener(e -> addMeal.doClick());
+            infoPanel.add(ingredientsField, gbc);
 
-            // img src
-            gbc.gridx = 0;
-            gbc.gridy = 6;
-            gbc.gridwidth = 1;
-            gbc.gridheight = 1;
-            gbc.weightx = 1.0;
-            gbc.weighty = 1.0;
-            gbc.fill = GridBagConstraints.BOTH;
-            JLabel imagePath = new JLabel("image path :");
-            imagePath.setForeground(MainFrame.orange);
-            imagePath.setFont(MainFrame.fontBold);
-            imagePath.setBackground(MainFrame.darkGray);
-            centerPanel.add(imagePath, gbc);
-
-            gbc.gridx = 0;
-            gbc.gridy = 7;
-            gbc.gridwidth = 1;
-            gbc.gridheight = 1;
-            gbc.weightx = 1.0;
-            gbc.weighty = 0.1;
-            imgSrcField = new JTextField("image path");
-            imgSrcField.setPreferredSize(new Dimension(280, 50));
-            imgSrcField.setFont(MainFrame.fontBold.deriveFont(20f));
-            imgSrcField.setForeground(MainFrame.extraLightGray);
-            imgSrcField.setBackground(MainFrame.darkGray);
-            imgSrcField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
-            imgSrcField.addFocusListener(new FocusAdapter() {
-                @Override
-                public void focusGained(FocusEvent e) {
-                    if (imgSrcField.getText().equals("image path")) {
-                        imgSrcField.setText("");
-                        imgSrcField.setForeground(MainFrame.orange);
-                    }
-                    imgSrcField.setBorder(new LineBorder(MainFrame.orange, 1));
-                }
-
-                @Override
-                public void focusLost(FocusEvent e) {
-                    if (imgSrcField.getText().isEmpty()) {
-                        imgSrcField.setText("image path");
-                        imgSrcField.setForeground(MainFrame.extraLightGray);
-                    }
-                    imgSrcField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
-                }
-            });
-            imgSrcField.addActionListener(e -> addMeal.doClick());
-            centerPanel.add(imgSrcField, gbc);
-
+//            // img file chooser
+//            gbc.gridx = 0;
+//            gbc.gridy = 6;
+//            gbc.gridwidth = 1;
+//            gbc.gridheight = 1;
+//            gbc.weightx = 1.0;
+//            gbc.weighty = 1.0;
+//            gbc.fill = GridBagConstraints.WEST;
+////            JLabel imagePath = new JLabel("image path :");
+////            imagePath.setForeground(MainFrame.orange);
+////            imagePath.setFont(MainFrame.fontBold);
+////            imagePath.setBackground(MainFrame.darkGray);
+//            JButton addImgButton = new JButton(" add Image ");
+////            addImgButton.setPreferredSize(new Dimension(200, 50));
+//            addImgButton.setForeground(MainFrame.orange);
+//            addImgButton.setFont(MainFrame.fontBold);
+//            addImgButton.setBackground(MainFrame.darkGray);
+//            addImgButton.setBorder(new LineBorder(MainFrame.orange, 1));
+//
+//            addImgButton.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    JFileChooser fileChooser = new JFileChooser();
+//                    fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+//
+//                    FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif",".bmp");
+//                    fileChooser.setFileFilter(filter);
+//                    fileChooser.setAcceptAllFileFilterUsed(false);
+//
+//                    int returnValue = fileChooser.showOpenDialog(null);
+//                    if (returnValue == JFileChooser.APPROVE_OPTION) {
+//                        File selectedFile = fileChooser.getSelectedFile();
+//                        imgSrcField.setText(selectedFile.getAbsolutePath());
+//                    }
+//                }
+//            });
+//            centerPanel.add(addImgButton, gbc);
+//
+//            gbc.gridx = 0;
+//            gbc.gridy = 7;
+//            gbc.gridwidth = 1;
+//            gbc.gridheight = 1;
+//            gbc.weightx = 1.0;
+//            gbc.weighty = 0.1;
+//            gbc.fill = GridBagConstraints.BOTH;
+//            imgSrcField = new JTextField("image path");
+//            imgSrcField.setEditable(false);
+//            imgSrcField.setPreferredSize(new Dimension(280, 50));
+//            imgSrcField.setFont(MainFrame.fontBold.deriveFont(20f));
+//            imgSrcField.setForeground(MainFrame.extraLightGray);
+//            imgSrcField.setBackground(MainFrame.darkGray);
+//            imgSrcField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+//            imgSrcField.addFocusListener(new FocusAdapter() {
+//                @Override
+//                public void focusGained(FocusEvent e) {
+//                    if (imgSrcField.getText().equals("image path")) {
+//                        imgSrcField.setText("");
+//                        imgSrcField.setForeground(MainFrame.orange);
+//                    }
+//                    imgSrcField.setBorder(new LineBorder(MainFrame.orange, 1));
+//                }
+//
+//                @Override
+//                public void focusLost(FocusEvent e) {
+//                    if (imgSrcField.getText().isEmpty()) {
+//                        imgSrcField.setText("image path");
+//                        imgSrcField.setForeground(MainFrame.extraLightGray);
+//                    }
+//                    imgSrcField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+//                }
+//            });
+//            imgSrcField.addActionListener(e -> addMeal.doClick());
+//            centerPanel.add(imgSrcField, gbc);
+            centerPanel.add(infoPanel, BorderLayout.CENTER);
             add(centerPanel, BorderLayout.CENTER);
         }
 
@@ -401,30 +525,13 @@ public class SidePanel extends JPanel {
             addMeal.setFont(MainFrame.fontBold);
             addMeal.setBackground(MainFrame.darkGray);
             addMeal.setBorder(new LineBorder(MainFrame.orange, 2));
-
-            // this action listener is just for fun ... it should be in the controller  x 2
-//            addMeal.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                        System.out.println(Float.parseFloat(priceField.getText()));
-//                    if (mealInfoValid()){
-//                        System.out.println("tmmmmmm");
-//                        newMenuTextFieldsReset();
-//
-//                    }else
-//                        System.out.println("wrong");
-//                }
-//            });
             add(addMeal, BorderLayout.SOUTH);
         }
     }
     public boolean mealInfoValid() {
 
-        File temp = new File(imgSrcField.getText()) ;
-        boolean tempIsImg = temp.getPath().endsWith(".jpg") || temp.getPath().endsWith(".jpeg") || temp.getPath().endsWith(".png")
-                || temp.getPath().endsWith(".gif") || temp.getPath().endsWith(".bmp") ;
         if (!nameField.getText().equals("name") && priceField.getText().matches("\\d+(\\.\\d+)?") &&
-                !ingredientsField.getText().equals("ingredients") && temp.exists() && tempIsImg){
+                !ingredientsField.getText().equals("ingredients")){
             return true;
         }else{
             if (nameField.getText().isEmpty() || nameField.getText().equals("name")){
@@ -435,9 +542,6 @@ public class SidePanel extends JPanel {
             }
             if (ingredientsField.getText().isEmpty() || ingredientsField.getText().equals("ingredients")){
                 ingredientsField.setBorder(new LineBorder(Color.RED, 1));
-            }
-            if( imgSrcField.getText().isEmpty() || imgSrcField.getText() == null || !temp.exists() || !tempIsImg ) {
-                imgSrcField.setBorder(new LineBorder(Color.RED, 1));
             }
             return false;
         }
@@ -463,12 +567,21 @@ public class SidePanel extends JPanel {
     public void newMealReset() {
         nameField.setText("name");
         nameField.setForeground(MainFrame.extraLightGray);
+        nameField.setForeground(MainFrame.extraLightGray);
+
         priceField.setText("price");
         priceField.setForeground(MainFrame.extraLightGray);
+        priceField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+
         ingredientsField.setText("ingredients");
         ingredientsField.setForeground(MainFrame.extraLightGray);
-        imgSrcField.setText("image path");
-        imgSrcField.setForeground(MainFrame.extraLightGray);
+        ingredientsField.setForeground(MainFrame.extraLightGray);
+
+        imgSrc = "src/pics/default.jpg" ;
+        img = Toolkit.getDefaultToolkit().getImage(imgSrc).getScaledInstance(350, 200, Image.SCALE_SMOOTH);
+        imgLabel.setIcon(new ImageIcon(img));
+        imgLabel.repaint();
+        imgLabel.revalidate();
 
     }
     public void orderReset(){
@@ -736,7 +849,7 @@ public class SidePanel extends JPanel {
     }
 
     public String getImgSrcField() {
-        return imgSrcField.getText();
+        return imgSrc ;
     }
 
     public JButton getAddMealButton() {

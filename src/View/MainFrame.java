@@ -65,7 +65,8 @@ public class MainFrame extends JFrame {
             throw new RuntimeException(e);
         }
         CardLayout cardLayout1 = new CardLayout();
-        setSize(new Dimension(1280, 720));
+//        setSize(new Dimension(1280, 720));
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(cardLayout1);
