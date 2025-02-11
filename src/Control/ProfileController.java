@@ -54,56 +54,58 @@ public class ProfileController {
         User user = users.findUser(profilePanel.getEditedUsername());
         if(users.findUser(profilePanel.getEditedUsername())!=null&& !profilePanel.getEditedUsername().equals(wantedUser.getUserName())){
             JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "Username already taken!", "Error", JOptionPane.INFORMATION_MESSAGE);
-        return;
+            return;
         }
-         if (RegisterPanel.passwordCheck(profilePanel.getEditedPassword())==0)
-         {
-             JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "not correct password formula!", "Error", JOptionPane.INFORMATION_MESSAGE);
-             return;
-         }
-         if(!RegisterPanel.isValidEmail(profilePanel.getEditedEmail()))
-         {
-             JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "not correct email formula!", "Error", JOptionPane.INFORMATION_MESSAGE);
-             return;
-         }
+        if (RegisterPanel.passwordCheck(profilePanel.getEditedPassword())==0) {
+            JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "not correct password formula!", "Error", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        if(!RegisterPanel.isValidEmail(profilePanel.getEditedEmail())) {
+            JOptionPane.showMessageDialog(profilePanel.getMainPanel(), "not correct email formula!", "Error", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
 
-         ArrayList<Order> ordersOfTheUsers;
+        ArrayList<Order> ordersOfTheUsers;
 
-         if(!wantedUser.getUserName().equals(profilePanel.getEditedUsername())){
-             int userType = wantedUser.getUserType();
-             ordersOfTheUsers = new ArrayList<>(wantedUser.getOrders().getOrdersForUser(wantedUser));
-             wantedUser.getOrders().removeKey(wantedUser);
-             report.getOrderingUsers().remove(wantedUser)
+        if(!wantedUser.getUserName().equals(profilePanel.getEditedUsername())){
+            int userType = wantedUser.getUserType();
+            ordersOfTheUsers = new ArrayList<>(wantedUser.getOrders().getOrdersForUser(wantedUser));
+            wantedUser.getOrders().removeKey(wantedUser);
+            report.getOrderingUsers().remove(wantedUser);
+            wantedUser.setUserName(profilePanel.getEditedUsername());
+            wantedUser.setEmail(profilePanel.getEditedEmail());
+            wantedUser.setPassword(profilePanel.getEditedPassword());
+            wantedUser.setImgSrc(profilePanel.getEditedProfileImg());
+            //saving the image to the pics file
+            boolean saved = wantedUser.saveImgToProject();
+            if(!saved){
+                JOptionPane.showMessageDialog(profilePanel, "Something happened while saving the image to the project :(\nthe image will be set to the default one, try editing it later", "", JOptionPane.ERROR_MESSAGE);
+            }
 
- ;
-             wantedUser.setUserName(profilePanel.getEditedUsername());
-             wantedUser.setEmail(profilePanel.getEditedEmail());
-             wantedUser.setPassword(profilePanel.getEditedPassword());
-             wantedUser.getOrders().addKey(new User(profilePanel.getEditedUsername(),profilePanel.getEditedEmail(),profilePanel.getEditedPassword(),userType));
+            wantedUser.getOrders().addKey(new User(profilePanel.getEditedUsername(),profilePanel.getEditedEmail(),profilePanel.getEditedPassword(),userType));
+            for(Order order : ordersOfTheUsers) {
+                order.setUsername(wantedUser.getUserName());
+                wantedUser.getOrders().addOrderForUser(wantedUser, order);
+            }
+            report.incrementUserCount(wantedUser,ordersOfTheUsers.size());report.writerThread();
+        }
+        else {
+            wantedUser.setEmail(profilePanel.getEditedEmail());
+            wantedUser.setPassword(profilePanel.getEditedPassword());
+            wantedUser.setImgSrc(profilePanel.getEditedProfileImg());
+            //saving the image to the pics file
+            boolean saved = wantedUser.saveImgToProject();
+            if(!saved){
+                JOptionPane.showMessageDialog(profilePanel, "Something happened while saving the image to the project :(\nthe image will be set to the default one, try editing it later", "", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        users.writerThread();
 
-             for(Order order : ordersOfTheUsers) {
-                 order.setUsername(wantedUser.getUserName());
-                 wantedUser.getOrders().addOrderForUser(wantedUser, order);
-             }
-             report.incrementUserCount(wantedUser,ordersOfTheUsers.size());
-
-            report.writerThread();
-
-         }
-         else {
-             wantedUser.setEmail(profilePanel.getEditedEmail());
-             wantedUser.setPassword(profilePanel.getEditedPassword());
-         }
-
-
-
-            users.writerThread();
-
-         profilePanel.mainPanel = profilePanel.fillProfile(wantedUser);
-         profilePanel.getCardPanel().add(profilePanel.mainPanel, "main");
-         profilePanel.getCardLayout().show(profilePanel.getCardPanel(), "main");
-         profilePanel.editProfileButton.setText("Edit");
-         inEditMode = false;
+        profilePanel.mainPanel = profilePanel.fillProfile(wantedUser);
+        profilePanel.getCardPanel().add(profilePanel.mainPanel, "main");
+        profilePanel.getCardLayout().show(profilePanel.getCardPanel(), "main");
+        profilePanel.editProfileButton.setText("Edit");
+        inEditMode = false;
 
 
      }

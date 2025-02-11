@@ -136,7 +136,6 @@ public class SidePanel extends JPanel {
                         imgLabel.setIcon(new ImageIcon(img));
                         imgLabel.repaint();
                         imgLabel.revalidate();
-                        System.out.println(imgSrc);
                     }
                 }
             });

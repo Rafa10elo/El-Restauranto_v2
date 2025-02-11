@@ -178,9 +178,7 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
                 loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(loginListener);
             }
         };
-
         loginAndRegistrationFrame.loginPanel.loginButton.addActionListener(loginListener);
-
     }
 
     MainFrame createMainFrame(User user, ProfilePanel profilePanel,ReportPanel reportPanel,AllOrdersPanel allOrdersPanel,Report report,Users users,Meals meals){

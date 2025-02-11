@@ -4,12 +4,11 @@ import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
@@ -28,6 +27,9 @@ public class ProfilePanel extends JPanel {
     private JTextField editPasswordField;
     private JTextField editEmailField;
     private JTextField editUsernameTextField;
+    private String profileImgPath;
+    private Image img;
+    private JLabel profilePicLabel;
     private User user;
     public JButton editProfileButton;
     public JButton logoutButton;
@@ -51,10 +53,9 @@ public class ProfilePanel extends JPanel {
         profileSidebarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 3, MainFrame.orange));
         add(profileSidebarPanel, BorderLayout.WEST);
 
-        //pfp
-        ImageIcon profileIcon = new ImageIcon("src/View/Images/profilePicture.png");
-        Image scaledImage = profileIcon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-        JLabel profilePicLabel = new JLabel(new ImageIcon(scaledImage));
+        profileImgPath = user.getImgSrc();
+        img = Toolkit.getDefaultToolkit().getImage(profileImgPath).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+        profilePicLabel = new JLabel(new ImageIcon(img));
         profilePicLabel.setHorizontalAlignment(SwingConstants.CENTER);
         profileSidebarPanel.add(profilePicLabel, BorderLayout.NORTH);
 
@@ -87,8 +88,8 @@ public class ProfilePanel extends JPanel {
 
         //main panel
          mainPanel = fillProfile(user);
-        //edit panel
 
+        //edit panel
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -187,8 +188,79 @@ public class ProfilePanel extends JPanel {
 
         }
     });
-        editPasswordField.addActionListener(e -> editProfileButton.doClick());
         editPanel.add(editPasswordField, gbc);
+
+        JButton editProfileImg = new JButton("edite image");
+        editProfileImg.setForeground(MainFrame.orange);
+        editProfileImg.setFont(MainFrame.fontBold);
+        editProfileImg.setBackground(MainFrame.darkGray);
+        editProfileImg.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        editProfileImg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg", "png", "gif",".bmp");
+                fileChooser.setFileFilter(filter);
+                fileChooser.setAcceptAllFileFilterUsed(false);
+
+                int returnValue = fileChooser.showOpenDialog(null);
+                if (returnValue == JFileChooser.APPROVE_OPTION) {
+                    profileImgPath = fileChooser.getSelectedFile().getPath() ;
+                    img = Toolkit.getDefaultToolkit().getImage(profileImgPath).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                    profilePicLabel.setIcon(new ImageIcon(img));
+                    profilePicLabel.repaint();
+                    profilePicLabel.revalidate();
+                }
+            }
+        });
+        editProfileImg.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editProfileImg.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editProfileImg.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            }
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        editPanel.add(editProfileImg, gbc) ;
+
+        JButton removeImg = new JButton("remove image");
+        removeImg.setForeground(MainFrame.orange);
+        removeImg.setFont(MainFrame.fontBold);
+        removeImg.setBackground(MainFrame.darkGray);
+        removeImg.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        removeImg.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                profileImgPath = "src/profilePics/profilePicture.png";
+                img = Toolkit.getDefaultToolkit().getImage(profileImgPath).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                profilePicLabel.setIcon(new ImageIcon(img));
+                profilePicLabel.repaint();
+                profilePicLabel.revalidate();
+            }
+        });
+        removeImg.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                removeImg.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                removeImg.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            }
+        });
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        editPanel.add(removeImg, gbc) ;
+
 
         cardPanel.add(mainPanel, "main");
         cardPanel.add(editPanel, "edit");
@@ -231,6 +303,10 @@ public class ProfilePanel extends JPanel {
     public String getEditedUsername(){return editUsernameTextField.getText();}
     public String getEditedEmail(){return editEmailField.getText();}
     public String getEditedPassword(){return editPasswordField.getText();}
+    public String getEditedProfileImg() {
+        profileImgPath.replace('\\', '/');
+        return profileImgPath;
+    }
     public User getUser(){return user;}
     public JPanel getMainPanel(){return mainPanel;}
 
