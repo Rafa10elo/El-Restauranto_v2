@@ -5,8 +5,6 @@ import Model.Meal;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class MealPanel extends JPanel {
 //    Meal meal ;
@@ -19,20 +17,20 @@ public class MealPanel extends JPanel {
     public MealPanel (Meal meal) {
         this.meal = meal ;
         setLayout(new BorderLayout());
-        setBackground(MainFrame.darkGray);
-        setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        setBackground(MainFrame.darkBackground);
+        setBorder(new LineBorder(MainFrame.extraLightColor, 1));
 
         // meal image
         JPanel mealPhoto = new JPanel() ;
-        mealPhoto.setBackground(MainFrame.darkGray);
+        mealPhoto.setBackground(MainFrame.darkBackground);
         Image img = Toolkit.getDefaultToolkit().getImage(meal.getImgSrc()).getScaledInstance(350, 200, Image.SCALE_SMOOTH) ;
         imgLabel = new JLabel(new ImageIcon(img)) ;
         mealPhoto.add(imgLabel) ;
 
         // meal info panel
         infoPanel = new JPanel(new GridBagLayout()) ;
-        infoPanel.setBackground(MainFrame.darkGray);
-        infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightGray));
+        infoPanel.setBackground(MainFrame.darkBackground);
+        infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightColor));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 10, 10, 0) ;
 
@@ -46,7 +44,7 @@ public class MealPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         JLabel name = new JLabel("Name");
-        name.setForeground(MainFrame.orange);
+        name.setForeground(MainFrame.mainColor);
         name.setFont(MainFrame.fontBold.deriveFont(25f));
         infoPanel.add(name, gbc);
 
@@ -58,7 +56,7 @@ public class MealPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         mealName = new JLabel(":   " + meal.getMealName());
-        mealName.setForeground(MainFrame.orange);
+        mealName.setForeground(MainFrame.mainColor);
         mealName.setFont(MainFrame.fontBold.deriveFont(20f));
         infoPanel.add(mealName, gbc);
 
@@ -72,7 +70,7 @@ public class MealPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         JLabel price = new JLabel("Price");
-        price.setForeground(MainFrame.orange);
+        price.setForeground(MainFrame.mainColor);
         price.setFont(MainFrame.fontBold.deriveFont(25f));
         infoPanel.add(price, gbc);
 
@@ -84,7 +82,7 @@ public class MealPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         mealPrice = new JLabel(":   " +String.valueOf(meal.getPrice()) + " $");
-        mealPrice.setForeground(MainFrame.orange);
+        mealPrice.setForeground(MainFrame.mainColor);
         mealPrice.setFont(MainFrame.fontBold.deriveFont(20f));
         infoPanel.add(mealPrice, gbc);
 
@@ -99,7 +97,7 @@ public class MealPanel extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.NORTH ;
         JLabel ingredients = new JLabel("Ingredients ");
-        ingredients.setForeground(MainFrame.orange);
+        ingredients.setForeground(MainFrame.mainColor);
         ingredients.setFont(MainFrame.fontBold.deriveFont(25f));
         infoPanel.add(ingredients, gbc);
 
@@ -111,11 +109,11 @@ public class MealPanel extends JPanel {
         gbc.weighty = 2.0;
         gbc.fill = GridBagConstraints.BOTH;
         mealIngredients = new JTextArea(":   " +meal.getIngredients());
-        mealIngredients.setBackground(MainFrame.darkGray);
+        mealIngredients.setBackground(MainFrame.darkBackground);
         mealIngredients.setLineWrap(true);
         mealIngredients.setWrapStyleWord(true);
         mealIngredients.setEditable(false);
-        mealIngredients.setForeground(MainFrame.orange);
+        mealIngredients.setForeground(MainFrame.mainColor);
         mealIngredients.setFont(MainFrame.fontBold.deriveFont(20f));
         mealIngredients.setBorder(BorderFactory.createEmptyBorder());
         JScrollPane scrollPane = new JScrollPane(mealIngredients);

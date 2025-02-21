@@ -1,8 +1,6 @@
 package View;
 
 import Model.Meal;
-import Model.Order;
-import Model.Payment;
 import Model.User;
 
 import javax.swing.*;
@@ -12,9 +10,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.math.BigDecimal;
-import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static java.lang.Math.round;
 
@@ -40,7 +36,7 @@ public class MealsPanel extends JPanel {
         add(sidePanel, BorderLayout.EAST) ;
 
         mainMenu = new JPanel() ;
-        mainMenu.setBackground(MainFrame.darkGray);
+        mainMenu.setBackground(MainFrame.darkBackground);
         mainMenu.setBorder(new EmptyBorder(10, 10, 10, 10));
         JScrollPane scrollMainMenu = new JScrollPane(mainMenu);
         scrollMainMenu.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
@@ -86,8 +82,8 @@ public class MealsPanel extends JPanel {
 
             @Override
             public void mouseExited(MouseEvent e) {
-                mealPanel.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
-                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightGray));
+                mealPanel.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightColor));
             }
         });
         return mealPanel;
@@ -128,7 +124,7 @@ public class MealsPanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.CENTER ;
         JLabel amount = new JLabel("Amount ");
-        amount.setForeground(MainFrame.orange);
+        amount.setForeground(MainFrame.mainColor);
         amount.setFont(MainFrame.fontBold.deriveFont(25f));
         mealPanel.infoPanel.add(amount, gbc);
 
@@ -141,7 +137,7 @@ public class MealsPanel extends JPanel {
         gbc.anchor = GridBagConstraints.WEST ;
         JLabel mealAmount = new JLabel(":   " + String.valueOf(sidePanel.orderMeals.get(meal)) );
 //        System.out.println(sidePanel.orderMeals.get(meal));
-        mealAmount.setForeground(MainFrame.orange);
+        mealAmount.setForeground(MainFrame.mainColor);
         mealAmount.setFont(MainFrame.fontBold.deriveFont(20f));
 
         // add label to hashmap
@@ -162,7 +158,7 @@ public class MealsPanel extends JPanel {
                     deleteDialog.setLocationRelativeTo(null);
                     // -------------------------------------------------------------------------------Modal ?????!!!!!!
                     deleteDialog.setModal(false);
-                    deleteDialog.getContentPane().setBackground(MainFrame.darkGray);
+                    deleteDialog.getContentPane().setBackground(MainFrame.darkBackground);
                     deleteDialog.setLayout(new GridBagLayout());
                     GridBagConstraints gbc = new GridBagConstraints();
 
@@ -176,7 +172,7 @@ public class MealsPanel extends JPanel {
                     //---------------------------------------------------------------if the meal cnt > 1 , we can make him choose if he wants to only delete one or the whole thing
                     JLabel confirmation = new JLabel("Do you want to remove this meal from your order ?");
                     confirmation.setFont(MainFrame.fontBold.deriveFont(25f));
-                    confirmation.setForeground(MainFrame.orange);
+                    confirmation.setForeground(MainFrame.mainColor);
                     deleteDialog.add(confirmation, gbc);
 
                     gbc.gridx = 0;
@@ -187,10 +183,10 @@ public class MealsPanel extends JPanel {
                     gbc.weighty = 1.0;
                     JButton cancle = new JButton("cancle");
                     cancle.setPreferredSize(new Dimension(100, 40));
-                    cancle.setBackground(MainFrame.lightGray);
-                    cancle.setForeground(MainFrame.orange);
+                    cancle.setBackground(MainFrame.lightBackground);
+                    cancle.setForeground(MainFrame.mainColor);
                     cancle.setFont(MainFrame.fontBold.deriveFont(25f));
-                    cancle.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                    cancle.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                     cancle.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -208,10 +204,10 @@ public class MealsPanel extends JPanel {
                     gbc.weighty = 1.0;
                     JButton delete = new JButton("Delete");
                     delete.setPreferredSize(new Dimension(100, 40));
-                    delete.setBackground(MainFrame.lightGray);
-                    delete.setForeground(MainFrame.orange);
+                    delete.setBackground(MainFrame.lightBackground);
+                    delete.setForeground(MainFrame.mainColor);
                     delete.setFont(MainFrame.fontBold.deriveFont(25f));
-                    delete.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                    delete.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                     delete.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -264,7 +260,7 @@ public class MealsPanel extends JPanel {
         editMealDialog.setLayout(new BorderLayout());
 
         JPanel editMealPanel = new JPanel() ;
-        editMealPanel.setBackground(MainFrame.darkGray);
+        editMealPanel.setBackground(MainFrame.darkBackground);
         editMealPanel.setBorder(new EmptyBorder(10, 20, 10, 20));
         editMealPanel.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints() ;
@@ -293,9 +289,9 @@ public class MealsPanel extends JPanel {
         gbc.weighty = 0.1;
         gbc.fill = GridBagConstraints.BOTH;
         JLabel name = new JLabel("name :");
-        name.setForeground(MainFrame.orange);
+        name.setForeground(MainFrame.mainColor);
         name.setFont(MainFrame.fontBold.deriveFont(25f));
-        name.setBackground(MainFrame.darkGray);
+        name.setBackground(MainFrame.darkBackground);
         editMealPanel.add(name, gbc);
 
         gbc.gridx = 0;
@@ -306,25 +302,25 @@ public class MealsPanel extends JPanel {
         gbc.weighty = 0.1;
         nameEdit = new JTextField(meal.getMealName());
         nameEdit.setFont(MainFrame.fontBold.deriveFont(20f));
-        nameEdit.setForeground(MainFrame.orange);
-        nameEdit.setBackground(MainFrame.darkGray);
-        nameEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        nameEdit.setForeground(MainFrame.mainColor);
+        nameEdit.setBackground(MainFrame.darkBackground);
+        nameEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
         nameEdit.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (nameEdit.getText().equals("name")) {
                     nameEdit.setText("");
-                    nameEdit.setForeground(MainFrame.orange);
+                    nameEdit.setForeground(MainFrame.mainColor);
                 }
-                nameEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+                nameEdit.setBorder(new LineBorder(MainFrame.mainColor, 1));
             }
             @Override
             public void focusLost(FocusEvent e) {
                 if (nameEdit.getText().isEmpty()) {
                     nameEdit.setText("name");
-                    nameEdit.setForeground(MainFrame.extraLightGray);
+                    nameEdit.setForeground(MainFrame.extraLightColor);
                 }
-                nameEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                nameEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             }
         });
         nameEdit.addActionListener(e -> priceEdit.requestFocus());
@@ -338,9 +334,9 @@ public class MealsPanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         JLabel price = new JLabel("price : ($)");
-        price.setForeground(MainFrame.orange);
+        price.setForeground(MainFrame.mainColor);
         price.setFont(MainFrame.fontBold.deriveFont(25f));
-        price.setBackground(MainFrame.darkGray);
+        price.setBackground(MainFrame.darkBackground);
         editMealPanel.add(price, gbc);
 
         gbc.gridx = 0;
@@ -351,25 +347,25 @@ public class MealsPanel extends JPanel {
         gbc.weighty = 0.1;
         priceEdit = new JTextField(String.valueOf(meal.getPrice()));
         priceEdit.setFont(MainFrame.fontBold.deriveFont(20f));
-        priceEdit.setForeground(MainFrame.orange);
-        priceEdit.setBackground(MainFrame.darkGray);
-        priceEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        priceEdit.setForeground(MainFrame.mainColor);
+        priceEdit.setBackground(MainFrame.darkBackground);
+        priceEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
         priceEdit.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (priceEdit.getText().equals("price")) {
                     priceEdit.setText("");
-                    priceEdit.setForeground(MainFrame.orange);
+                    priceEdit.setForeground(MainFrame.mainColor);
                 }
-                priceEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+                priceEdit.setBorder(new LineBorder(MainFrame.mainColor, 1));
             }
             @Override
             public void focusLost(FocusEvent e) {
                 if (priceEdit.getText().isEmpty()) {
                     priceEdit.setText("price");
-                    priceEdit.setForeground(MainFrame.extraLightGray);
+                    priceEdit.setForeground(MainFrame.extraLightColor);
                 }
-                priceEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                priceEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             }
         });
         priceEdit.addKeyListener(new KeyAdapter() {
@@ -387,8 +383,8 @@ public class MealsPanel extends JPanel {
                     priceEdit.setBorder(new LineBorder(Color.RED, 1));
                     priceEdit.setForeground(Color.RED);
                 } else {
-                    priceEdit.setBorder(new LineBorder(MainFrame.orange, 1));
-                    priceEdit.setForeground(MainFrame.orange);
+                    priceEdit.setBorder(new LineBorder(MainFrame.mainColor, 1));
+                    priceEdit.setForeground(MainFrame.mainColor);
                 }
             }
         });
@@ -403,9 +399,9 @@ public class MealsPanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         JLabel ingredients = new JLabel("ingredients :");
-        ingredients.setForeground(MainFrame.orange);
+        ingredients.setForeground(MainFrame.mainColor);
         ingredients.setFont(MainFrame.fontBold.deriveFont(25f));
-        ingredients.setBackground(MainFrame.darkGray);
+        ingredients.setBackground(MainFrame.darkBackground);
         editMealPanel.add(ingredients, gbc);
 
         gbc.gridx = 0;
@@ -416,26 +412,26 @@ public class MealsPanel extends JPanel {
         gbc.weighty = 0.1;
         ingredientsEdit = new JTextField(meal.getIngredients());
         ingredientsEdit.setFont(MainFrame.fontBold.deriveFont(20f));
-        ingredientsEdit.setForeground(MainFrame.orange);
-        ingredientsEdit.setBackground(MainFrame.darkGray);
-        ingredientsEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        ingredientsEdit.setForeground(MainFrame.mainColor);
+        ingredientsEdit.setBackground(MainFrame.darkBackground);
+        ingredientsEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
         ingredientsEdit.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (ingredientsEdit.getText().equals("ingredients")) {
                     ingredientsEdit.setText("");
-                    ingredientsEdit.setForeground(MainFrame.orange);
+                    ingredientsEdit.setForeground(MainFrame.mainColor);
                 }
-                ingredientsEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+                ingredientsEdit.setBorder(new LineBorder(MainFrame.mainColor, 1));
             }
 
             @Override
             public void focusLost(FocusEvent e) {
                 if (ingredientsEdit.getText().isEmpty()) {
                     ingredientsEdit.setText("ingredients");
-                    ingredientsEdit.setForeground(MainFrame.extraLightGray);
+                    ingredientsEdit.setForeground(MainFrame.extraLightColor);
                 }
-                ingredientsEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                ingredientsEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             }
         });
         ingredientsEdit.addActionListener(e -> imgSrcEdit.requestFocus());
@@ -449,9 +445,9 @@ public class MealsPanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         JLabel imagePath = new JLabel("image path :");
-        imagePath.setForeground(MainFrame.orange);
+        imagePath.setForeground(MainFrame.mainColor);
         imagePath.setFont(MainFrame.fontBold.deriveFont(25f));
-        imagePath.setBackground(MainFrame.darkGray);
+        imagePath.setBackground(MainFrame.darkBackground);
         editMealPanel.add(imagePath, gbc);
 
         gbc.gridx = 0;
@@ -462,25 +458,25 @@ public class MealsPanel extends JPanel {
         gbc.weighty = 0.1;
         imgSrcEdit = new JTextField(meal.getImgSrc());
         imgSrcEdit.setFont(MainFrame.fontBold.deriveFont(20f));
-        imgSrcEdit.setForeground(MainFrame.orange);
-        imgSrcEdit.setBackground(MainFrame.darkGray);
-        imgSrcEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        imgSrcEdit.setForeground(MainFrame.mainColor);
+        imgSrcEdit.setBackground(MainFrame.darkBackground);
+        imgSrcEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
         imgSrcEdit.addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (imgSrcEdit.getText().equals("image path")) {
                     imgSrcEdit.setText("");
-                    imgSrcEdit.setForeground(MainFrame.orange);
+                    imgSrcEdit.setForeground(MainFrame.mainColor);
                 }
-                imgSrcEdit.setBorder(new LineBorder(MainFrame.orange, 1));
+                imgSrcEdit.setBorder(new LineBorder(MainFrame.mainColor, 1));
             }
             @Override
             public void focusLost(FocusEvent e) {
                 if (imgSrcEdit.getText().isEmpty()) {
                     imgSrcEdit.setText("image path");
-                    imgSrcEdit.setForeground(MainFrame.extraLightGray);
+                    imgSrcEdit.setForeground(MainFrame.extraLightColor);
                 }
-                imgSrcEdit.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                imgSrcEdit.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             }
         });
         imgSrcEdit.addActionListener(e -> editMeal.doClick());
@@ -497,10 +493,10 @@ public class MealsPanel extends JPanel {
         gbc.insets = new Insets(0, 20, 0, 0) ;
         editMeal.setText("edit meal"); ;
         editMeal.setPreferredSize(new Dimension(100, 40));
-        editMeal.setBackground(MainFrame.darkGray);
-        editMeal.setForeground(MainFrame.orange);
+        editMeal.setBackground(MainFrame.darkBackground);
+        editMeal.setForeground(MainFrame.mainColor);
         editMeal.setFont(MainFrame.fontBold.deriveFont(25f));
-        editMeal.setBorder(new LineBorder(MainFrame.extraLightGray,2 ));
+        editMeal.setBorder(new LineBorder(MainFrame.extraLightColor,2 ));
         editMealPanel.add(editMeal, gbc);
 
         gbc.gridx = 1;
@@ -511,10 +507,10 @@ public class MealsPanel extends JPanel {
         gbc.insets = new Insets(0, 0, 0, 20) ;
         deleteMeal.setText("Delete meal"); ;
         deleteMeal.setPreferredSize(new Dimension(100, 40));
-        deleteMeal.setBackground(MainFrame.darkGray);
-        deleteMeal.setForeground(MainFrame.orange);
+        deleteMeal.setBackground(MainFrame.darkBackground);
+        deleteMeal.setForeground(MainFrame.mainColor);
         deleteMeal.setFont(MainFrame.fontBold.deriveFont(25f));
-        deleteMeal.setBorder(new LineBorder(MainFrame.extraLightGray, 2));
+        deleteMeal.setBorder(new LineBorder(MainFrame.extraLightColor, 2));
         editMealPanel.add(deleteMeal, gbc);
 
         editMealDialog.add(editMealPanel, BorderLayout.CENTER) ;

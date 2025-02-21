@@ -17,7 +17,13 @@ public class User {
     private String imgSrc;
     Orders orders = Orders.getOrdersSing();
     //private boolean isLoggedIn;
+    //themes
+    enum MainColor {ORANGE, GREEN, RED}
+    enum BgColor {DARK, LIGHT}
+    MainColor mc= MainColor.ORANGE;
+    BgColor bg= BgColor.DARK;
 
+    // getters
     public int getUserType() {
         return userType;
     }
@@ -36,7 +42,14 @@ public class User {
     public String getImgSrc() {
         return imgSrc;
     }
+    public int getMc() {
+        return mc.ordinal();
+    }
+    public int getBg() {
+        return bg.ordinal();
+    }
 
+    //setters
     public void setUserName(String userName) {
         this.userName = userName;
     }
@@ -49,6 +62,12 @@ public class User {
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
     }
+    public void setMc(int mc) {
+        this.mc = MainColor.values()[mc];
+    }
+    public void setBg(int bg) {
+        this.bg = BgColor.values()[bg];
+    }
 
     public User(String userName, String email, String password, int userType) {
         this.userName = userName;
@@ -56,6 +75,8 @@ public class User {
         this.password = password;
         this.userType = userType;
         this.imgSrc = "src/profilePics/profilePicture.png";
+        this.mc = MainColor.ORANGE;
+        this.bg = BgColor.DARK;
     }
 
     public User(String userName, String email, String password, int userType, String imgSrc) {

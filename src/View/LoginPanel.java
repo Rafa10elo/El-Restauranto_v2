@@ -2,14 +2,9 @@ package View;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 
 public class LoginPanel extends JPanel {
     public static Color lightGray = new Color(43, 45, 48) ;
@@ -31,8 +26,8 @@ public class LoginPanel extends JPanel {
         JPanel centralPanel = new JPanel();
         centralPanel.setFont(MainFrame.fontRegular);
         centralPanel.setLayout(new GridBagLayout());
-        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.orange));
-        centralPanel.setBackground(MainFrame.darkGray);
+        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.mainColor));
+        centralPanel.setBackground(MainFrame.darkBackground);
 
         JLabel userLabel = createJLabel("Username:",gbc,0,0);
         centralPanel.add(userLabel, gbc);
@@ -40,7 +35,7 @@ public class LoginPanel extends JPanel {
          userField = new JTextField(15);
         gbc.gridx = 1;
         userField.setFont(LoginAndRegistrationFrame.fieldsFont);
-        userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        userField.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         userField.addActionListener(e -> passField.requestFocus());
 
         centralPanel.add(userField, gbc);
@@ -86,7 +81,7 @@ public class LoginPanel extends JPanel {
         });
         passwordEntryPanel.add(showPasswordCheckbox,gbc1);
         passwordEntryPanel.setBackground(new Color(70,73,75));
-        passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         gbc.gridx = 1;
         centralPanel.add(passwordEntryPanel, gbc);
 
@@ -104,7 +99,7 @@ public class LoginPanel extends JPanel {
         centralPanel.add(registerLabel, gbc);
 
         JButton cmdRegister = new JButton("Register Here!");
-        cmdRegister.setForeground(MainFrame.orange); // Set text color
+        cmdRegister.setForeground(MainFrame.mainColor); // Set text color
         cmdRegister.setFont(MainFrame.fontRegular.deriveFont(20F)); // Set the custom font
         cmdRegister.setContentAreaFilled(false);
         cmdRegister.setBorderPainted(false);

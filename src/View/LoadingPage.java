@@ -21,7 +21,7 @@ public class LoadingPage extends JPanel {
 
     public LoadingPage() {
 
-        setBackground(MainFrame.darkGray);
+        setBackground(MainFrame.darkBackground);
         for (int i = 0; i < numOfDots; i++) {
             diffOfDots[i] = i * waveDiff;
         }
@@ -84,12 +84,12 @@ public class LoadingPage extends JPanel {
             for (int i = 0; i < numOfDots; i++) {
                 int x = startX + i * (dotDiameter + hSpace);
                 int y = centerY - dotDiameter / 2 + dotY[i];
-                g2d.setColor(MainFrame.orange);
+                g2d.setColor(MainFrame.mainColor);
                 g2d.fillOval(x, y, dotDiameter, dotDiameter);
             }
         } else {
             g2d.setFont(MainFrame.fontBold);
-            g2d.setColor(new Color(MainFrame.orange.getRed(),MainFrame.orange.getGreen(),MainFrame.orange.getBlue(), (int) (welcomeAlpha * 255)));
+            g2d.setColor(new Color(MainFrame.mainColor.getRed(),MainFrame.mainColor.getGreen(),MainFrame.mainColor.getBlue(), (int) (welcomeAlpha * 255)));
             String message = "Welcome To El-Resturanto";
             int x = (getWidth() -256 ) / 2;
             int y = (getHeight() -20) / 2;

@@ -1,19 +1,14 @@
 package View;
-import Model.Meal;
-import Model.Order;
 import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf ;
-import com.sun.source.doctree.ThrowsTree;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MainFrame extends JFrame {
     public MealsPanel mealsPanel;
@@ -21,14 +16,6 @@ public class MainFrame extends JFrame {
     public ReportPanel reportPanel;
     public AllOrdersPanel allOrdersPanel;
     public JPanel panel;
-
-
-    public static Color darkGray = new Color(30, 31, 34) ;
-    public static Color lightGray = new Color(43, 45, 48) ;
-    public static Color extraLightGray = new Color(57, 59, 64) ;
-    public static Color orange = new Color(206, 129, 76) ;
-    public static Font fontBold = null ;
-    public static Font fontRegular = null ;
     public static CardLayout cardLayout ;
     public static JPanel cardsPanel;
     public static JButton profileButton;
@@ -36,6 +23,8 @@ public class MainFrame extends JFrame {
     public static JButton allOrdersButton;
     public static JButton reportButton;
 
+    public static Font fontBold = null ;
+    public static Font fontRegular = null ;
 
     static {
         try {
@@ -57,6 +46,19 @@ public class MainFrame extends JFrame {
         }
     }
 
+    // colors
+    private static Color orange = new Color(206, 129, 76);
+    private static Color green = new Color(113, 158, 109);
+    private static Color red = new Color(195, 75, 76);
+    public static Color darkBackground = new Color(30, 31, 34) ;
+    public static Color lightBackground = new Color(43, 45, 48) ;
+    public static Color extraLightColor = new Color(57, 59, 64) ;
+    public static Color mainColor = orange;
+    public JButton backgroundSwitch;
+    public JButton orangeB;
+    public JButton greenB;
+    public JButton redB;
+
     public  MainFrame(User user, ProfilePanel profilePanel, ReportPanel reportPanel, AllOrdersPanel allOrdersPanel) {
         try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -65,7 +67,6 @@ public class MainFrame extends JFrame {
             throw new RuntimeException(e);
         }
         CardLayout cardLayout1 = new CardLayout();
-//        setSize(new Dimension(1280, 720));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -82,9 +83,9 @@ public class MainFrame extends JFrame {
 
         // The top panel, which contains the buttons : Meals, Profile, and All Orders
         JPanel navigationBarPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        navigationBarPanel.setBackground(lightGray);
+        navigationBarPanel.setBackground(lightBackground);
         navigationBarPanel.setPreferredSize(new Dimension(this.getWidth(), 50));
-        navigationBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, orange));
+        navigationBarPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, mainColor));
         profileButton = createButton("Your Profile");
         mainMenuButton = createButton("Main Menu");
         allOrdersButton = createButton("All Orders");
@@ -93,8 +94,31 @@ public class MainFrame extends JFrame {
         navigationBarPanel.add(profileButton);
         navigationBarPanel.add(mainMenuButton);
         navigationBarPanel.add(allOrdersButton);
-        if (user.getUserType() == 2)
+        if (user.getUserType() == 2){
             navigationBarPanel.add(reportButton);
+            navigationBarPanel.add(Box.createRigidArea(new Dimension(680,0)));
+        }else
+            navigationBarPanel.add(Box.createRigidArea(new Dimension(850,0)));
+
+        // add themes buttons to the top panel
+            // color buttons
+        JPanel colorsPanel = new JPanel();
+        colorsPanel.setLayout(new FlowLayout());
+        colorsPanel.setBackground(lightBackground);
+        orangeB = createCircleButton(orange);
+        greenB = createCircleButton(green);
+        redB = createCircleButton(red);
+        colorsPanel.add(orangeB);
+        colorsPanel.add(greenB);
+        colorsPanel.add(redB);
+        navigationBarPanel.add(colorsPanel);
+            // background button
+        backgroundSwitch = new JButton("D");
+        backgroundSwitch.setBorderPainted(false);
+        backgroundSwitch.setBorderPainted(false);
+        backgroundSwitch.setBackground(lightBackground);
+        backgroundSwitch.setPreferredSize(new Dimension(50, 40));
+        navigationBarPanel.add(backgroundSwitch);
 
         panel.add(navigationBarPanel, BorderLayout.NORTH);
 
@@ -108,8 +132,6 @@ public class MainFrame extends JFrame {
         this.profilePanel = profilePanel;
         cardsPanel.add(profilePanel, "profilePanel");
 
-
-
         this.allOrdersPanel = allOrdersPanel;
         cardsPanel.add(allOrdersPanel, "allOrdersPanel");
         panel.add(cardsPanel, BorderLayout.CENTER);
@@ -121,7 +143,6 @@ public class MainFrame extends JFrame {
 
         Timer showMainPanel = new Timer(6000, e -> {
             cardLayout1.show(this.getContentPane(), "main");
-            panel.remove(loadingPanel);
         });
         showMainPanel.start();
     }
@@ -134,12 +155,61 @@ public class MainFrame extends JFrame {
     JButton createButton(String buttonText) {
         JButton button = new JButton(buttonText);
         button.setBorderPainted(false);
-//        button.setContentAreaFilled(false);
-        button.setBackground(lightGray);
-        button.setForeground(orange);
+        button.setBackground(lightBackground);
+        button.setForeground(mainColor);
         button.setFont(fontBold);
         button.setPreferredSize(new Dimension(170, 40));
         return button;
 
+    }
+
+    JButton createCircleButton(Color color) {
+        JButton button = new JButton() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                if (getModel().isRollover()) {
+                    g2d.setColor(color.darker());
+                } else {
+                    g2d.setColor(color);
+                }
+                g2d.fillOval(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
+        };
+
+        button.setPreferredSize(new Dimension(20, 20));
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+
+        return button;
+    }
+
+    public static void resetMainColor (int main){
+        switch (main){
+            case 0:
+                mainColor = new Color(206, 129, 76);
+                break;
+            case 1:
+                mainColor = new Color(113, 158, 109);
+                break;
+            case 2:
+                mainColor = new Color(195, 75, 76);
+                break;
+        }
+    }
+    public static void resetBackground (int bg){
+        switch (bg){
+            case 1:
+                darkBackground = new Color(30, 31, 34) ;
+                lightBackground = new Color(43, 45, 48) ;
+                extraLightColor = new Color(57, 59, 64) ;
+                break;
+            case 2:
+                mainColor = new Color(113, 158, 109);
+                break;
+        }
     }
 }

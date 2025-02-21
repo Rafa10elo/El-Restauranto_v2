@@ -59,11 +59,11 @@ public class AllOrdersPanel extends JPanel {
     JPanel createMealPanel (Meal meal){
         JPanel mealPanel = new JPanel();
         mealPanel.setLayout(new GridBagLayout());
-        mealPanel.setBackground(MainFrame.darkGray);
+        mealPanel.setBackground(MainFrame.darkBackground);
         mealPanel.setMaximumSize(new Dimension(200,200));
         mealPanel.setMinimumSize(new Dimension(200,200));
 //        mealPanel.setPreferredSize(new Dimension(150,150));
-        mealPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,MainFrame.extraLightGray));
+        mealPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1,MainFrame.extraLightColor));
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(3,3,3,3);
@@ -104,9 +104,9 @@ public class AllOrdersPanel extends JPanel {
 
     JPanel createMultipleMealsPanel (HashMap<Meal,Integer> meals) {
         JPanel multipleMealsPanel = new JPanel();
-        multipleMealsPanel.setBackground(MainFrame.lightGray);
+        multipleMealsPanel.setBackground(MainFrame.lightBackground);
         multipleMealsPanel.setBorder(new EmptyBorder(5,5,5,5));
-        multipleMealsPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.lightGray));
+        multipleMealsPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.lightBackground));
         multipleMealsPanel.setPreferredSize(new Dimension(meals.size()*(220),210));
         multipleMealsPanel.setLayout(new BoxLayout(multipleMealsPanel,BoxLayout.X_AXIS));
         multipleMealsPanel.add(Box.createRigidArea(new Dimension(5,0)));
@@ -129,13 +129,13 @@ public class AllOrdersPanel extends JPanel {
         JPanel orderPanel = new JPanel();
         orderPanel.setPreferredSize(new Dimension(1200,280));
         orderPanel.setLayout(new BorderLayout());
-        orderPanel.setBackground(MainFrame.darkGray);
-        orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.lightGray));
+        orderPanel.setBackground(MainFrame.darkBackground);
+        orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.lightBackground));
 
         JPanel labelsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         orderPanel.add(labelsPanel,BorderLayout.NORTH);
         JLabel orderLabel = createLabel("Order no."+String.valueOf(cnt)+":                     ",MainFrame.fontBold,22);
-        orderLabel.setForeground(MainFrame.orange);
+        orderLabel.setForeground(MainFrame.mainColor);
         labelsPanel.add(orderLabel);
 
         JLabel timeTagLabel = createLabel("Time: ",MainFrame.fontBold,22);
@@ -194,12 +194,12 @@ public class AllOrdersPanel extends JPanel {
         JPanel miniAllOrdersPanel = new JPanel();
 
         miniAllOrdersPanel.setLayout(new BoxLayout(miniAllOrdersPanel, BoxLayout.Y_AXIS));
-        miniAllOrdersPanel.setBackground(MainFrame.darkGray);
+        miniAllOrdersPanel.setBackground(MainFrame.darkBackground);
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
 
         for(int i=0; i<cnt;i++){
             JPanel orderPanel= createOrderPanel(user,theOrdersOfTheUser.get(i),i+1);
-            orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.orange));
+            orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.mainColor));
             miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)),0);
             miniAllOrdersPanel.add(orderPanel,0);
         }
@@ -217,7 +217,7 @@ public class AllOrdersPanel extends JPanel {
     }
     public void addNewOrder(Order order, User user, Orders orders) {
         JPanel newOrderPanel = createOrderPanel(user,order, orders.getOrdersForUser(user).size());
-        newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.orange));
+        newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.mainColor));
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)),0);
         miniAllOrdersPanel.add(newOrderPanel,0);
         miniAllOrdersPanel.revalidate();

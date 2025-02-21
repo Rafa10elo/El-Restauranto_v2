@@ -6,11 +6,9 @@ import Model.User;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
@@ -49,26 +47,26 @@ public class SidePanel extends JPanel {
     JButton resetOrder = new JButton();
     public SidePanel(User user) {
         setLayout(new BorderLayout());
-        setBackground(MainFrame.darkGray);
+        setBackground(MainFrame.darkBackground);
         setPreferredSize(new Dimension(400, this.getHeight()));
-        setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, MainFrame.orange));
+        setBorder(BorderFactory.createMatteBorder(0, 4, 0, 0, MainFrame.mainColor));
 
         // top panel
         JPanel topPanel = new JPanel();
-        topPanel.setBackground(MainFrame.darkGray);
-        topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, MainFrame.orange));
+        topPanel.setBackground(MainFrame.darkBackground);
+        topPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, MainFrame.mainColor));
 
         if (user.getUserType() == 0) {
             // Your order :
             JLabel youOrder = new JLabel("Your order :");
-            youOrder.setForeground(MainFrame.orange);
+            youOrder.setForeground(MainFrame.mainColor);
             youOrder.setFont(MainFrame.fontBold);
             topPanel.add(youOrder);
         }
         else {
             // Add new meal :
             JLabel newMeal = new JLabel("Add new meal :");
-            newMeal.setForeground(MainFrame.orange);
+            newMeal.setForeground(MainFrame.mainColor);
             newMeal.setFont(MainFrame.fontBold);
             topPanel.add(newMeal);
         }
@@ -81,16 +79,16 @@ public class SidePanel extends JPanel {
             // order meals
             centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
             centerPanel.setBorder(new EmptyBorder(5, 15, 5, 15));
-            centerPanel.setBackground(MainFrame.darkGray);
+            centerPanel.setBackground(MainFrame.darkBackground);
             add(new JScrollPane(centerPanel), BorderLayout.CENTER);
         }
         else {
             centerPanel.setLayout(new BorderLayout());
-            centerPanel.setBackground(MainFrame.darkGray);
+            centerPanel.setBackground(MainFrame.darkBackground);
 
             // meal image
             JPanel mealPhoto = new JPanel() ;
-            mealPhoto.setBackground(MainFrame.darkGray);
+            mealPhoto.setBackground(MainFrame.darkBackground);
             imgSrc = "src/pics/default.jpg" ;
             img = Toolkit.getDefaultToolkit().getImage(imgSrc);
             imgLabel = new JLabel(new ImageIcon(img));
@@ -102,7 +100,7 @@ public class SidePanel extends JPanel {
             JPanel infoPanel = new JPanel() ;
             infoPanel.setLayout(new GridBagLayout());
             infoPanel.setBorder(new EmptyBorder(0, 20, 20, 20));
-            infoPanel.setBackground(MainFrame.darkGray);
+            infoPanel.setBackground(MainFrame.darkBackground);
             GridBagConstraints gbc = new GridBagConstraints();
 
             //add image button (file chooser)
@@ -115,10 +113,10 @@ public class SidePanel extends JPanel {
             gbc.fill = GridBagConstraints.NONE;
             JButton addImgButton = new JButton(" add Image ");
             addImgButton.setPreferredSize(new Dimension(150, 50));
-            addImgButton.setForeground(MainFrame.orange);
+            addImgButton.setForeground(MainFrame.mainColor);
             addImgButton.setFont(MainFrame.fontBold);
-            addImgButton.setBackground(MainFrame.darkGray);
-            addImgButton.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            addImgButton.setBackground(MainFrame.darkBackground);
+            addImgButton.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             addImgButton.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -142,12 +140,12 @@ public class SidePanel extends JPanel {
             addImgButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    addImgButton.setBorder(new LineBorder(MainFrame.orange, 1));
+                    addImgButton.setBorder(new LineBorder(MainFrame.mainColor, 1));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    addImgButton.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                    addImgButton.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                 }
             });
             infoPanel.add(addImgButton, gbc);
@@ -162,10 +160,10 @@ public class SidePanel extends JPanel {
             gbc.fill = GridBagConstraints.NONE;
             JButton resetNewMeal = new JButton(" reset ");
             resetNewMeal.setPreferredSize(new Dimension(150, 50));
-            resetNewMeal.setForeground(MainFrame.orange);
+            resetNewMeal.setForeground(MainFrame.mainColor);
             resetNewMeal.setFont(MainFrame.fontBold);
-            resetNewMeal.setBackground(MainFrame.darkGray);
-            resetNewMeal.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            resetNewMeal.setBackground(MainFrame.darkBackground);
+            resetNewMeal.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             resetNewMeal.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -175,12 +173,12 @@ public class SidePanel extends JPanel {
             resetNewMeal.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    resetNewMeal.setBorder(new LineBorder(MainFrame.orange, 1));
+                    resetNewMeal.setBorder(new LineBorder(MainFrame.mainColor, 1));
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    resetNewMeal.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                    resetNewMeal.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                 }
             });
             infoPanel.add(resetNewMeal, gbc);
@@ -194,9 +192,9 @@ public class SidePanel extends JPanel {
             gbc.weighty = 1.0;
             gbc.fill = GridBagConstraints.BOTH;
             JLabel name = new JLabel("name :");
-            name.setForeground(MainFrame.orange);
+            name.setForeground(MainFrame.mainColor);
             name.setFont(MainFrame.fontBold);
-            name.setBackground(MainFrame.darkGray);
+            name.setBackground(MainFrame.darkBackground);
             infoPanel.add(name, gbc);
 
             gbc.gridx = 0;
@@ -207,26 +205,26 @@ public class SidePanel extends JPanel {
             gbc.weighty = 0.1;
             nameField = new JTextField("name");
             nameField.setFont(MainFrame.fontBold.deriveFont(20f));
-            nameField.setForeground(MainFrame.extraLightGray);
-            nameField.setBackground(MainFrame.darkGray);
-            nameField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            nameField.setForeground(MainFrame.extraLightColor);
+            nameField.setBackground(MainFrame.darkBackground);
+            nameField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             nameField.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
                     if (nameField.getText().equals("name")) {
                         nameField.setText("");
-                        nameField.setForeground(MainFrame.orange);
+                        nameField.setForeground(MainFrame.mainColor);
                     }
-                    nameField.setBorder(new LineBorder(MainFrame.orange, 1));
+                    nameField.setBorder(new LineBorder(MainFrame.mainColor, 1));
                 }
 
                 @Override
                 public void focusLost(FocusEvent e) {
                     if (nameField.getText().isEmpty()) {
                         nameField.setText("name");
-                        nameField.setForeground(MainFrame.extraLightGray);
+                        nameField.setForeground(MainFrame.extraLightColor);
                     }
-                    nameField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                    nameField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                 }
             });
             nameField.addActionListener(e -> priceField.requestFocus());
@@ -241,9 +239,9 @@ public class SidePanel extends JPanel {
             gbc.weighty = 1.0;
             gbc.fill = GridBagConstraints.BOTH;
             JLabel price = new JLabel("price : ($)");
-            price.setForeground(MainFrame.orange);
+            price.setForeground(MainFrame.mainColor);
             price.setFont(MainFrame.fontBold);
-            price.setBackground(MainFrame.darkGray);
+            price.setBackground(MainFrame.darkBackground);
             infoPanel.add(price, gbc);
 
             gbc.gridx = 0;
@@ -254,25 +252,25 @@ public class SidePanel extends JPanel {
             gbc.weighty = 0.1;
             priceField = new JTextField("price");
             priceField.setFont(MainFrame.fontBold.deriveFont(20f));
-            priceField.setForeground(MainFrame.extraLightGray);
-            priceField.setBackground(MainFrame.darkGray);
-            priceField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            priceField.setForeground(MainFrame.extraLightColor);
+            priceField.setBackground(MainFrame.darkBackground);
+            priceField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             priceField.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
-                    priceField.setBorder(new LineBorder(MainFrame.orange, 1));
+                    priceField.setBorder(new LineBorder(MainFrame.mainColor, 1));
                     if (priceField.getText().equals("price")) {
                         priceField.setText("");
-                        priceField.setForeground(MainFrame.orange);
+                        priceField.setForeground(MainFrame.mainColor);
                     }
                 }
 
                 @Override
                 public void focusLost(FocusEvent e) {
-                    priceField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                    priceField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                     if (priceField.getText().isEmpty()) {
                         priceField.setText("price");
-                        priceField.setForeground(MainFrame.extraLightGray);
+                        priceField.setForeground(MainFrame.extraLightColor);
                     }
                 }
             });
@@ -293,8 +291,8 @@ public class SidePanel extends JPanel {
                         priceField.setBorder(new LineBorder(Color.RED, 1));
                         priceField.setForeground(Color.RED);
                     } else {
-                        priceField.setBorder(new LineBorder(MainFrame.orange, 1));
-                        priceField.setForeground(MainFrame.orange);
+                        priceField.setBorder(new LineBorder(MainFrame.mainColor, 1));
+                        priceField.setForeground(MainFrame.mainColor);
                     }
                 }
             });
@@ -309,9 +307,9 @@ public class SidePanel extends JPanel {
             gbc.weightx = 2.0;
             gbc.weighty = 1.0;
             JLabel ingredients = new JLabel("ingredients :");
-            ingredients.setForeground(MainFrame.orange);
+            ingredients.setForeground(MainFrame.mainColor);
             ingredients.setFont(MainFrame.fontBold);
-            ingredients.setBackground(MainFrame.darkGray);
+            ingredients.setBackground(MainFrame.darkBackground);
             infoPanel.add(ingredients, gbc);
 
             gbc.gridx = 0;
@@ -322,26 +320,26 @@ public class SidePanel extends JPanel {
             gbc.weighty = 0.1;
             ingredientsField = new JTextField("ingredients");
             ingredientsField.setFont(MainFrame.fontBold.deriveFont(20f));
-            ingredientsField.setForeground(MainFrame.extraLightGray);
-            ingredientsField.setBackground(MainFrame.darkGray);
-            ingredientsField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            ingredientsField.setForeground(MainFrame.extraLightColor);
+            ingredientsField.setBackground(MainFrame.darkBackground);
+            ingredientsField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
             ingredientsField.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
                     if (ingredientsField.getText().equals("ingredients")) {
                         ingredientsField.setText("");
-                        ingredientsField.setForeground(MainFrame.orange);
+                        ingredientsField.setForeground(MainFrame.mainColor);
                     }
-                    ingredientsField.setBorder(new LineBorder(MainFrame.orange, 1));
+                    ingredientsField.setBorder(new LineBorder(MainFrame.mainColor, 1));
                 }
 
                 @Override
                 public void focusLost(FocusEvent e) {
                     if (ingredientsField.getText().isEmpty()) {
                         ingredientsField.setText("ingredients");
-                        ingredientsField.setForeground(MainFrame.extraLightGray);
+                        ingredientsField.setForeground(MainFrame.extraLightColor);
                     }
-                    ingredientsField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                    ingredientsField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                 }
             });
             ingredientsField.addActionListener(e -> addMeal.doClick());
@@ -430,8 +428,8 @@ public class SidePanel extends JPanel {
             JPanel bottomPanel = new JPanel();
             bottomPanel.setLayout(new GridBagLayout());
             GridBagConstraints gbc = new GridBagConstraints();
-            bottomPanel.setBackground(MainFrame.darkGray);
-            bottomPanel.setBorder(BorderFactory.createMatteBorder(3, 0, 0, 0, MainFrame.orange));
+            bottomPanel.setBackground(MainFrame.darkBackground);
+            bottomPanel.setBorder(BorderFactory.createMatteBorder(3, 0, 0, 0, MainFrame.mainColor));
 
             //total price panel : (TOTAL PRICE : ??? $)
             gbc.gridx = 0;
@@ -443,7 +441,7 @@ public class SidePanel extends JPanel {
             gbc.fill = GridBagConstraints.BOTH;
 
             JPanel totalPricePanel = new JPanel();
-            totalPricePanel.setBackground(MainFrame.darkGray);
+            totalPricePanel.setBackground(MainFrame.darkBackground);
 
 //            JLabel totalPriceLabel = new JLabel(" Total Price : ");
 //            totalPriceLabel.setForeground(MainFrame.orange);
@@ -452,13 +450,13 @@ public class SidePanel extends JPanel {
 //            totalPricePanel.add(totalPriceLabel);
 
             totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
-            totalPrice.setBackground(MainFrame.darkGray);
+            totalPrice.setBackground(MainFrame.darkBackground);
             totalPricePanel.add(totalPrice);
 
             JLabel dollar = new JLabel(" $");
-            dollar.setForeground(MainFrame.orange);
+            dollar.setForeground(MainFrame.mainColor);
             dollar.setFont(MainFrame.fontBold);
-            dollar.setBackground(MainFrame.darkGray);
+            dollar.setBackground(MainFrame.darkBackground);
             totalPricePanel.add(dollar);
 
 //            JScrollPane scrollPrice = new JScrollPane(totalPricePanel) ;
@@ -477,16 +475,16 @@ public class SidePanel extends JPanel {
             gbc.fill = GridBagConstraints.BOTH;
 
             JPanel tipPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-            tipPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, MainFrame.extraLightGray));
-            tipPanel.setBackground(MainFrame.darkGray);
+            tipPanel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, MainFrame.extraLightColor));
+            tipPanel.setBackground(MainFrame.darkBackground);
 
             JLabel tipLabel = new JLabel("tip :");
-            tipLabel.setForeground(MainFrame.orange);
+            tipLabel.setForeground(MainFrame.mainColor);
             tipLabel.setFont(MainFrame.fontBold.deriveFont(25f));
 
             tipsCombo.setFont(MainFrame.fontBold.deriveFont(25f));
-            tipsCombo.setBackground(MainFrame.darkGray);
-            tipsCombo.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+            tipsCombo.setBackground(MainFrame.darkBackground);
+            tipsCombo.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
 
             tipPanel.add(tipLabel);
             tipPanel.add(tipsCombo);
@@ -502,10 +500,10 @@ public class SidePanel extends JPanel {
             gbc.weighty = 3.0;
             gbc.fill = GridBagConstraints.BOTH;
             JButton submitOrder = new JButton("Submit Order");
-            submitOrder.setForeground(MainFrame.orange);
+            submitOrder.setForeground(MainFrame.mainColor);
             submitOrder.setFont(MainFrame.fontBold);
-            submitOrder.setBackground(MainFrame.darkGray);
-            submitOrder.setBorder(new LineBorder(MainFrame.extraLightGray, 2));
+            submitOrder.setBackground(MainFrame.darkBackground);
+            submitOrder.setBorder(new LineBorder(MainFrame.extraLightColor, 2));
 
             submitOrder.addActionListener(new ActionListener() {
                 @Override
@@ -520,10 +518,10 @@ public class SidePanel extends JPanel {
         } else {
             addMeal = new JButton("add meal");
             addMeal.setPreferredSize(new Dimension(this.getWidth(), 100));
-            addMeal.setForeground(MainFrame.orange);
+            addMeal.setForeground(MainFrame.mainColor);
             addMeal.setFont(MainFrame.fontBold);
-            addMeal.setBackground(MainFrame.darkGray);
-            addMeal.setBorder(new LineBorder(MainFrame.orange, 2));
+            addMeal.setBackground(MainFrame.darkBackground);
+            addMeal.setBorder(new LineBorder(MainFrame.mainColor, 2));
             add(addMeal, BorderLayout.SOUTH);
         }
     }
@@ -554,8 +552,8 @@ public class SidePanel extends JPanel {
                 cash.setForeground(Color.RED);
                 creditCard.setForeground(Color.RED);
             }else{
-                cash.setForeground(MainFrame.orange);
-                creditCard.setForeground(MainFrame.orange);
+                cash.setForeground(MainFrame.mainColor);
+                creditCard.setForeground(MainFrame.mainColor);
             }
             if ( creditCard.isSelected() && creditCardId.getText().isEmpty() ){
                 creditCardId.setBorder(new LineBorder(Color.RED, 1));
@@ -565,16 +563,16 @@ public class SidePanel extends JPanel {
     }
     public void newMealReset() {
         nameField.setText("name");
-        nameField.setForeground(MainFrame.extraLightGray);
-        nameField.setForeground(MainFrame.extraLightGray);
+        nameField.setForeground(MainFrame.extraLightColor);
+        nameField.setForeground(MainFrame.extraLightColor);
 
         priceField.setText("price");
-        priceField.setForeground(MainFrame.extraLightGray);
-        priceField.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        priceField.setForeground(MainFrame.extraLightColor);
+        priceField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
 
         ingredientsField.setText("ingredients");
-        ingredientsField.setForeground(MainFrame.extraLightGray);
-        ingredientsField.setForeground(MainFrame.extraLightGray);
+        ingredientsField.setForeground(MainFrame.extraLightColor);
+        ingredientsField.setForeground(MainFrame.extraLightColor);
 
         imgSrc = "src/pics/default.jpg" ;
         img = Toolkit.getDefaultToolkit().getImage(imgSrc).getScaledInstance(350, 200, Image.SCALE_SMOOTH);
@@ -609,7 +607,7 @@ public class SidePanel extends JPanel {
 
 //        paymentDialog.setModal(true);
 //        paymentDialog.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        paymentDialog.getContentPane().setBackground(MainFrame.darkGray);
+        paymentDialog.getContentPane().setBackground(MainFrame.darkBackground);
         paymentDialog.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
 
@@ -623,7 +621,7 @@ public class SidePanel extends JPanel {
         gbc.fill = GridBagConstraints.BOTH;
         JLabel paidAmount = new JLabel(" Payment :");
         paidAmount.setFont(MainFrame.fontBold.deriveFont(25f));
-        paidAmount.setForeground(MainFrame.orange);
+        paidAmount.setForeground(MainFrame.mainColor);
         paymentDialog.add(paidAmount, gbc);
 
         gbc.gridx = 1;
@@ -634,7 +632,7 @@ public class SidePanel extends JPanel {
         gbc.weighty = 1.0;
         JLabel totalPrice = new JLabel(String.valueOf(totalPriceNumber.add(BigDecimal.valueOf((double) tipsCombo.getSelectedItem())) ) ) ;
         totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
-        totalPrice.setForeground(MainFrame.orange);
+        totalPrice.setForeground(MainFrame.mainColor);
         paymentDialog.add(totalPrice, gbc);
 
         // payment method
@@ -646,7 +644,7 @@ public class SidePanel extends JPanel {
         gbc.weighty = 1.0;
         JLabel method = new JLabel(" How do you want to pay ?");
         method.setFont(MainFrame.fontBold.deriveFont(25f));
-        method.setForeground(MainFrame.orange);
+        method.setForeground(MainFrame.mainColor);
         paymentDialog.add(method, gbc);
 
         gbc.gridx = 1;
@@ -656,14 +654,14 @@ public class SidePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         cash = new JRadioButton("Cash");
-        cash.setForeground(MainFrame.orange);
+        cash.setForeground(MainFrame.mainColor);
         cash.setFont(MainFrame.fontBold.deriveFont(25f));
         cash.setFocusPainted(false);
         cash.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                creditCardId.setBackground(MainFrame.darkGray);
-                creditCardId.setBorder(new LineBorder(MainFrame.lightGray, 1));
+                creditCardId.setBackground(MainFrame.darkBackground);
+                creditCardId.setBorder(new LineBorder(MainFrame.lightBackground, 1));
                 creditCardId.setEnabled(false);
                 creditCardId.repaint();
             }
@@ -677,14 +675,14 @@ public class SidePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         creditCard = new JRadioButton("Credit Card");
-        creditCard.setForeground(MainFrame.orange);
+        creditCard.setForeground(MainFrame.mainColor);
         creditCard.setFont(MainFrame.fontBold.deriveFont(25f));
         creditCard.setFocusPainted(false);
         creditCard.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                creditCardId.setBackground(MainFrame.lightGray);
-                creditCardId.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+                creditCardId.setBackground(MainFrame.lightBackground);
+                creditCardId.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                 creditCardId.setEnabled(true);
                 creditCardId.repaint();
             }
@@ -703,7 +701,7 @@ public class SidePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         JLabel ccID = new JLabel(" Enter your card number :");
-        ccID.setForeground(MainFrame.orange);
+        ccID.setForeground(MainFrame.mainColor);
         ccID.setFont(MainFrame.fontBold.deriveFont(25f));
         paymentDialog.add(ccID, gbc) ;
 
@@ -717,8 +715,8 @@ public class SidePanel extends JPanel {
         gbc.insets = new Insets(0, 0, 0, 10);
         creditCardId = new JTextField("") ;
         creditCardId.setPreferredSize(new Dimension(0, 30));
-        creditCardId.setBackground(MainFrame.darkGray);
-        creditCardId.setBorder(new LineBorder(MainFrame.lightGray, 1));
+        creditCardId.setBackground(MainFrame.darkBackground);
+        creditCardId.setBorder(new LineBorder(MainFrame.lightBackground, 1));
         creditCardId.setEnabled(false);
         paymentDialog.add(creditCardId, gbc) ;
 
@@ -730,7 +728,7 @@ public class SidePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         JLabel orderType = new JLabel(" Order type :");
-        orderType.setForeground(MainFrame.orange);
+        orderType.setForeground(MainFrame.mainColor);
         orderType.setFont(MainFrame.fontBold.deriveFont(25f));
         paymentDialog.add(orderType, gbc) ;
 
@@ -741,7 +739,7 @@ public class SidePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         dineIn = new JRadioButton("Dine-in");
-        dineIn.setForeground(MainFrame.orange);
+        dineIn.setForeground(MainFrame.mainColor);
         dineIn.setFont(MainFrame.fontBold.deriveFont(25f));
         dineIn.setFocusPainted(false);
         dineIn.setSelected(true);
@@ -754,7 +752,7 @@ public class SidePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         delivery = new JRadioButton("Delivery");
-        delivery.setForeground(MainFrame.orange);
+        delivery.setForeground(MainFrame.mainColor);
         delivery.setFont(MainFrame.fontBold.deriveFont(25f));
         delivery.setFocusPainted(false);
         paymentDialog.add(delivery, gbc) ;
@@ -771,7 +769,7 @@ public class SidePanel extends JPanel {
         gbc.weightx = 1.0;
         gbc.weighty = 1.0;
         JLabel specialRequestsLabel = new JLabel(" Special Requests :");
-        specialRequestsLabel.setForeground(MainFrame.orange);
+        specialRequestsLabel.setForeground(MainFrame.mainColor);
         specialRequestsLabel.setFont(MainFrame.fontBold.deriveFont(25f));
         paymentDialog.add(specialRequestsLabel, gbc) ;
 
@@ -785,8 +783,8 @@ public class SidePanel extends JPanel {
         gbc.insets = new Insets(0, 0, 0, 10);
         specialRequests = new JTextField("") ;
         specialRequests.setPreferredSize(new Dimension(0, 30));
-        specialRequests.setBackground(MainFrame.lightGray);
-        specialRequests.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        specialRequests.setBackground(MainFrame.lightBackground);
+        specialRequests.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
         paymentDialog.add(specialRequests, gbc) ;
 
         // cancel button
@@ -801,10 +799,10 @@ public class SidePanel extends JPanel {
         gbc.insets = new Insets(0, 30, 0, 0);
         resetOrder.setText("reset order"); ;
         resetOrder.setPreferredSize(new Dimension(100, 40));
-        resetOrder.setBackground(MainFrame.lightGray);
-        resetOrder.setForeground(MainFrame.orange);
+        resetOrder.setBackground(MainFrame.lightBackground);
+        resetOrder.setForeground(MainFrame.mainColor);
         resetOrder.setFont(MainFrame.fontBold.deriveFont(25f));
-        resetOrder.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        resetOrder.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
         paymentDialog.add(resetOrder, gbc);
 
         // pay button
@@ -818,10 +816,10 @@ public class SidePanel extends JPanel {
         gbc.insets = new Insets(0, 0, 0, 30);
         pay.setText("pay"); ;
         pay.setPreferredSize(new Dimension(100, 40));
-        pay.setBackground(MainFrame.lightGray);
-        pay.setForeground(MainFrame.orange);
+        pay.setBackground(MainFrame.lightBackground);
+        pay.setForeground(MainFrame.mainColor);
         pay.setFont(MainFrame.fontBold.deriveFont(25f));
-        pay.setBorder(new LineBorder(MainFrame.extraLightGray, 1));
+        pay.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
         paymentDialog.add(pay, gbc);
 
         paymentDialog.setVisible(true);

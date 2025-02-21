@@ -1,13 +1,9 @@
 package View;
 
-import com.sun.tools.javac.Main;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -40,8 +36,8 @@ public class RegisterPanel extends JPanel {
         setLayout(new GridBagLayout());
         JPanel centralPanel = new JPanel();
         centralPanel.setLayout(new GridBagLayout());
-        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.orange, 3));
-        centralPanel.setBackground(MainFrame.darkGray);
+        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.mainColor, 3));
+        centralPanel.setBackground(MainFrame.darkBackground);
         GridBagConstraints gbc = new GridBagConstraints();
 
         gbc.insets = new Insets(20, 20, 20, 20);
@@ -55,7 +51,7 @@ public class RegisterPanel extends JPanel {
         userField = new JTextField(15);
         gbc.gridx = 1;
         userField.setFont(fieldsFont);
-        userField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        userField.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         userField.addActionListener(e -> emailField.requestFocus());
         centralPanel.add(userField, gbc);
 
@@ -67,7 +63,7 @@ public class RegisterPanel extends JPanel {
         emailField.setFont(fieldsFont);
 
         gbc.gridx = 1;
-        emailField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        emailField.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         emailField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -168,7 +164,7 @@ public class RegisterPanel extends JPanel {
         passwordEntryPanel.add(passField,gbc1);
 
         JCheckBox showPasswordCheckbox = new JCheckBox();
-        showPasswordCheckbox.setForeground(MainFrame.orange);
+        showPasswordCheckbox.setForeground(MainFrame.mainColor);
         showPasswordCheckbox.setFont(MainFrame.fontRegular);
         showPasswordCheckbox.setOpaque(false);
        gbc1.gridx = 10;
@@ -180,7 +176,7 @@ public class RegisterPanel extends JPanel {
 
         passwordEntryPanel.add(showPasswordCheckbox,gbc1);
         passwordEntryPanel.setBackground(new Color(70,73,75));
-        passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         gbc.gridx = 1;
        centralPanel.add(passwordEntryPanel, gbc);
 
@@ -238,7 +234,7 @@ public class RegisterPanel extends JPanel {
         passwordEntryPanel1.add(passCheckField,gbc1);
 
         JCheckBox showPasswordCheckCheckbox = new JCheckBox();
-        showPasswordCheckCheckbox.setForeground(MainFrame.orange);
+        showPasswordCheckCheckbox.setForeground(MainFrame.mainColor);
         showPasswordCheckCheckbox.setFont(MainFrame.fontRegular);
         showPasswordCheckCheckbox.setOpaque(false);
         gbc1.gridx = 10;
@@ -250,7 +246,7 @@ public class RegisterPanel extends JPanel {
 
         passwordEntryPanel1.add(showPasswordCheckCheckbox,gbc1);
         passwordEntryPanel1.setBackground(new Color(70,73,75));
-        passwordEntryPanel1.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        passwordEntryPanel1.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         gbc.gridx = 1;
         centralPanel.add(passwordEntryPanel1, gbc);
         showPasswordCheckCheckbox.addActionListener(e -> {
@@ -277,12 +273,12 @@ public class RegisterPanel extends JPanel {
         userChoice.add(chooseManagerButton);
 
         JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
-        radioPanel.setBackground(MainFrame.darkGray);
+        radioPanel.setBackground(MainFrame.darkBackground);
         radioPanel.add(chooseCustomerButton);
         radioPanel.add(chooseEmployeeButton);
         radioPanel.add(chooseManagerButton);
 
-        radioPanel.setBackground(MainFrame.darkGray);
+        radioPanel.setBackground(MainFrame.darkBackground);
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
@@ -297,7 +293,7 @@ public class RegisterPanel extends JPanel {
         optionalField.setEnabled(false);
         gbc.gridx = 1;
         gbc.insets = new Insets(5, 30, 5, 10);
-        optionalField.setBorder(new LineBorder(MainFrame.extraLightGray,1));
+        optionalField.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         optionalField.addActionListener(e -> registerButton.doClick());
         centralPanel.add(optionalField, gbc);
 

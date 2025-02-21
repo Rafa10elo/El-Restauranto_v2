@@ -8,11 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginAndRegistrationFrame extends JFrame {
-    public static Color lightGray = new Color(43, 45, 48) ;
-    public static Color darkGray = new Color(30, 31, 34) ;
-    public static Color orange = new Color(206, 129, 76) ;
     public static Font fontBold = null ;
-    public static Font fontRegular = null ;
     public static Font fieldsFont = null;
 
     public CardLayout cardLayout ;
