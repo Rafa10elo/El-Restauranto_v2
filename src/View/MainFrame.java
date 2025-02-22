@@ -28,7 +28,7 @@ public class MainFrame extends JFrame {
 
     static {
         try {
-            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Bold.ttf")).deriveFont(35f) ;
+            fontBold = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/FontsAndIcons/AmaticSC-Bold.ttf")).deriveFont(35f) ;
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -38,7 +38,7 @@ public class MainFrame extends JFrame {
 
     static {
         try {
-            fontRegular = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/AmaticSC-Regular.ttf")).deriveFont(35f) ;
+            fontRegular = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/FontsAndIcons/AmaticSC-Regular.ttf")).deriveFont(35f) ;
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -54,6 +54,8 @@ public class MainFrame extends JFrame {
     public static Color lightBackground = new Color(43, 45, 48) ;
     public static Color extraLightColor = new Color(57, 59, 64) ;
     public static Color mainColor = orange;
+    public static ImageIcon sun = new ImageIcon("C:/Users/Lenovo/Desktop/sun-icon-8565 - Copy.png") ;
+    public static ImageIcon moon = new ImageIcon("C:/Users/Lenovo/Desktop/moon-icon-23631.png") ;
     public JButton backgroundSwitch;
     public JButton orangeB;
     public JButton greenB;
@@ -66,6 +68,7 @@ public class MainFrame extends JFrame {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        System.out.println("creating main frame");
         CardLayout cardLayout1 = new CardLayout();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
@@ -113,7 +116,10 @@ public class MainFrame extends JFrame {
         colorsPanel.add(redB);
         navigationBarPanel.add(colorsPanel);
             // background button
-        backgroundSwitch = new JButton("D");
+        if (user.getBg() == 0)
+            backgroundSwitch = new JButton(moon);
+        else
+            backgroundSwitch = new JButton(sun);
         backgroundSwitch.setBorderPainted(false);
         backgroundSwitch.setBorderPainted(false);
         backgroundSwitch.setBackground(lightBackground);
@@ -202,13 +208,13 @@ public class MainFrame extends JFrame {
     }
     public static void resetBackground (int bg){
         switch (bg){
-            case 1:
+            case 0:
                 darkBackground = new Color(30, 31, 34) ;
                 lightBackground = new Color(43, 45, 48) ;
                 extraLightColor = new Color(57, 59, 64) ;
                 break;
-            case 2:
-                mainColor = new Color(113, 158, 109);
+            case 1:
+                System.out.println("light theme");
                 break;
         }
     }

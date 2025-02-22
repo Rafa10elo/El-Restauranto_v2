@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginAndRegistrationFrame extends JFrame {
-    public static Font fontBold = null ;
     public static Font fieldsFont = null;
 
     public CardLayout cardLayout ;
@@ -17,7 +16,7 @@ public class LoginAndRegistrationFrame extends JFrame {
     public RegisterPanel registerPanel ;
     static {
         try {
-            fieldsFont = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(16f) ;
+            fieldsFont = Font.createFont( Font.TRUETYPE_FONT, new File("src/View/FontsAndIcons/ShadowsIntoLight-Regular.ttf")).deriveFont(16f) ;
         } catch (FontFormatException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {

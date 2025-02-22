@@ -95,6 +95,25 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
         mainFrame.addWindowListener(windowAdapter);
         profilePanel.logoutButton.addActionListener(logoutListener);
 
+        // themes buttons
+        mainFrame.backgroundSwitch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (user.getBg() == 0){
+                    // the theme is dark and we want to switch to light
+                    user.setBg(1);
+                    MainFrame.resetBackground(1);
+                    mainFrame.dispose();
+                    startMainFrame();
+                }else{
+                    // the theme is light and we want to switch to dark
+                    user.setBg(0);
+                    MainFrame.resetBackground(0);
+                    mainFrame.dispose();
+                    startMainFrame();
+                }
+            }
+        });
         mainFrame.orangeB.addActionListener(colorButtonsAl(0));
         mainFrame.greenB.addActionListener(colorButtonsAl(1));
         mainFrame.redB.addActionListener(colorButtonsAl(2));
@@ -188,7 +207,6 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
                 }
             };
             mainFrame.mealsPanel.getSidePanel().getResetOrderButton().addActionListener(resetOrderListener);
-
         }
     }
 
@@ -231,14 +249,15 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
         return user;
     }
     ActionListener colorButtonsAl(int col){
+        // action listener to the color dots
         ActionListener al = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(col != user.getMc()){
+                    user.setMc(col);
                     MainFrame.resetMainColor(col);
                     mainFrame.dispose();
                     startMainFrame();
-                    user.setMc(col);
                 }
             }
         };

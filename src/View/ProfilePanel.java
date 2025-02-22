@@ -63,14 +63,38 @@ public class ProfilePanel extends JPanel {
         editProfileButton = new JButton("Edit");
         editProfileButton.setFont(MainFrame.fontBold.deriveFont(40F));
         editProfileButton.setFocusPainted(false);
-        editProfileButton.setBackground(MainFrame.mainColor);
-        editProfileButton.setForeground(MainFrame.darkBackground);
+        editProfileButton.setBackground(MainFrame.lightBackground);
+        editProfileButton.setForeground(MainFrame.mainColor);
+        editProfileButton.setBorder(new LineBorder(MainFrame.extraLightColor, 2));
+        editProfileButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                editProfileButton.setBorder(new LineBorder(MainFrame.mainColor, 2));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                editProfileButton.setBorder(new LineBorder(MainFrame.extraLightColor, 2));
+            }
+        });
 
         logoutButton = new JButton("Logout");
         logoutButton.setFont(MainFrame.fontBold.deriveFont(40F));
         logoutButton.setFocusPainted(false);
-        logoutButton.setBackground(MainFrame.mainColor);
-        logoutButton.setForeground(MainFrame.darkBackground);
+        logoutButton.setBackground(MainFrame.lightBackground);
+        logoutButton.setForeground(MainFrame.mainColor);
+        logoutButton.setBorder(new LineBorder(MainFrame.extraLightColor, 2));
+        logoutButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                logoutButton.setBorder(new LineBorder(MainFrame.mainColor, 2));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                logoutButton.setBorder(new LineBorder(MainFrame.extraLightColor, 2));
+            }
+        });
 
         buttonPanel.add(editProfileButton);
         buttonPanel.add(logoutButton);
@@ -153,8 +177,6 @@ public class ProfilePanel extends JPanel {
                 editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.GREEN));
             else if (test == 4)
                 editPasswordField.setBorder(new MatteBorder(0,0,2,0,Color.cyan));
-
-
         }
 
         @Override
@@ -333,6 +355,7 @@ public class ProfilePanel extends JPanel {
 
         JLabel usernameLabel = new JLabel("Username:");
         usernameLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        usernameLabel.setForeground(MainFrame.mainColor);
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.gridwidth = 1;
@@ -347,6 +370,7 @@ public class ProfilePanel extends JPanel {
 
         JLabel emailLabel = new JLabel("Email:");
         emailLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        emailLabel.setForeground(MainFrame.mainColor);
         gbc.gridx = 0;
         gbc.gridy = 2;
         mainPanel.add(emailLabel, gbc);
@@ -359,6 +383,7 @@ public class ProfilePanel extends JPanel {
 
         JLabel userTypeLabel = new JLabel("User:");
         userTypeLabel.setFont(MainFrame.fontBold.deriveFont(40F));
+        userTypeLabel.setForeground(MainFrame.mainColor);
         gbc.gridx = 0;
         gbc.gridy = 3;
         mainPanel.add(userTypeLabel, gbc);

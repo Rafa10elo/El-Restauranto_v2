@@ -24,14 +24,6 @@ public class RegisterPanel extends JPanel {
     JTextField optionalField;
     JButton backButton;
 
-    static {
-        try {
-            fieldsFont = Font.createFont(Font.TRUETYPE_FONT, new File("src/View/Fonts/ShadowsIntoLight-Regular.ttf")).deriveFont(15f);
-        } catch (FontFormatException | IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public RegisterPanel(JPanel mainPanel, CardLayout cardLayout) {
         setLayout(new GridBagLayout());
         JPanel centralPanel = new JPanel();
