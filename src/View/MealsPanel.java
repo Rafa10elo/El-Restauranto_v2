@@ -29,8 +29,11 @@ public class MealsPanel extends JPanel {
     JTextField imgSrcEdit;
     JButton editMeal = new JButton() ;
     JButton deleteMeal = new JButton() ;
+    User user;
+    Color borderAction;
 
     public MealsPanel (User user) {
+        this.user = user;
         setLayout(new BorderLayout());
         sidePanel = new SidePanel(user) ;
         add(sidePanel, BorderLayout.EAST) ;
@@ -73,11 +76,16 @@ public class MealsPanel extends JPanel {
         MealPanel mealPanel = new MealPanel(meal) ;
 
         // adding mouse listener to make the panel act like a button 🐰
+        if (user.getBg() == 0){
+            borderAction = new Color(91, 94, 102);
+        }else{
+            borderAction = Color.WHITE;
+        }
         mealPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                mealPanel.setBorder(new LineBorder(new Color(91, 94, 102), 1));
-                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, new Color(91, 94, 102)));
+                mealPanel.setBorder(new LineBorder(borderAction, 1));
+                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, borderAction));
             }
 
             @Override

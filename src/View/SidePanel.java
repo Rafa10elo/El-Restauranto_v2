@@ -72,7 +72,6 @@ public class SidePanel extends JPanel {
         }
         add(topPanel, BorderLayout.NORTH);
 
-
         // center panel
         centerPanel = new JPanel();
         if (user.getUserType() == 0) {
@@ -422,7 +421,6 @@ public class SidePanel extends JPanel {
             add(centerPanel, BorderLayout.CENTER);
         }
 
-
         // bottom panel
         if (user.getUserType() == 0) {
             JPanel bottomPanel = new JPanel();
@@ -443,14 +441,10 @@ public class SidePanel extends JPanel {
             JPanel totalPricePanel = new JPanel();
             totalPricePanel.setBackground(MainFrame.darkBackground);
 
-//            JLabel totalPriceLabel = new JLabel(" Total Price : ");
-//            totalPriceLabel.setForeground(MainFrame.orange);
-//            totalPriceLabel.setFont(MainFrame.fontBold);
-//            totalPriceLabel.setBackground(MainFrame.darkGray);
-//            totalPricePanel.add(totalPriceLabel);
-
             totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
             totalPrice.setBackground(MainFrame.darkBackground);
+            if(user.getBg() == 1)
+                totalPrice.setForeground(MainFrame.extraLightColor);
             totalPricePanel.add(totalPrice);
 
             JLabel dollar = new JLabel(" $");
@@ -458,10 +452,6 @@ public class SidePanel extends JPanel {
             dollar.setFont(MainFrame.fontBold);
             dollar.setBackground(MainFrame.darkBackground);
             totalPricePanel.add(dollar);
-
-//            JScrollPane scrollPrice = new JScrollPane(totalPricePanel) ;
-//            scrollPrice.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-//            scrollPrice.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
             bottomPanel.add(totalPricePanel, gbc);
 
@@ -484,6 +474,8 @@ public class SidePanel extends JPanel {
 
             tipsCombo.setFont(MainFrame.fontBold.deriveFont(25f));
             tipsCombo.setBackground(MainFrame.darkBackground);
+            if(user.getBg() == 1)
+                tipsCombo.setForeground(MainFrame.extraLightColor);
             tipsCombo.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
 
             tipPanel.add(tipLabel);

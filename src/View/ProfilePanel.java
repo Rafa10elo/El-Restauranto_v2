@@ -2,6 +2,7 @@ package View;
 
 import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -32,11 +33,18 @@ public class ProfilePanel extends JPanel {
 
     public ProfilePanel(User user) {
         this.user=user;
-        try{
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (user.getBg() == 0){
+            try{
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+            try{
+                UIManager.setLookAndFeel(new FlatLightLaf());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         setLayout(new BorderLayout());
 
@@ -126,6 +134,8 @@ public class ProfilePanel extends JPanel {
 
         editUsernameTextField = new JTextField(user.getUserName(), 15);
         editUsernameTextField.setFont(fieldsFont.deriveFont(30f));
+        if(user.getBg() == 1)
+            editUsernameTextField.setForeground(Color.DARK_GRAY);
         gbc.gridx = 1;
         gbc.gridy = 0;
         editUsernameTextField.addActionListener(e -> editEmailField.requestFocus());
@@ -142,6 +152,8 @@ public class ProfilePanel extends JPanel {
 
         editEmailField = new JTextField(user.getEmail(), 15);
         editEmailField.setFont(fieldsFont.deriveFont(30f));
+        if(user.getBg() == 1)
+            editEmailField.setForeground(Color.DARK_GRAY);
         gbc.gridx = 1;
         gbc.gridy = 1;
         editEmailField.addActionListener(e -> editPasswordField.requestFocus());
@@ -158,6 +170,8 @@ public class ProfilePanel extends JPanel {
 
         editPasswordField = new JTextField(user.getPassword(), 15);
         editPasswordField.setFont(fieldsFont.deriveFont(30f));
+        if(user.getBg() == 1)
+            editPasswordField.setForeground(Color.DARK_GRAY);
         gbc.gridx = 1;
         gbc.gridy = 2;
         editPasswordField.addKeyListener(new KeyAdapter() {
@@ -281,41 +295,6 @@ public class ProfilePanel extends JPanel {
 
         cardPanel.add(mainPanel, "main");
         cardPanel.add(editPanel, "edit");
-
-
-        //to switch between edit and main panel
-//        editProfileButton.addActionListener(new ActionListener() {
-//            private boolean inEditMode = false;
-//
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (inEditMode) {
-//                    // Switch back to main panel
-//                    cardLayout.show(cardPanel, "main");
-//                    editProfileButton.setText("Edit");
-//                    inEditMode = false;
-//                } else {
-//                    // Switch to edit panel
-//                    String passwordDialog = JOptionPane.showInputDialog(mainPanel, "Enter your password:");
-//                    if(Objects.equals(passwordDialog, user.getPassword())){
-//                        cardLayout.show(cardPanel, "edit");
-//                        inEditMode = true;
-//                        editProfileButton.setText("Save");
-//                    }
-//                    else
-//                    JOptionPane.showMessageDialog(mainPanel, "Access Denied", "Error", JOptionPane.INFORMATION_MESSAGE);
-//                }
-//            }
-//        });
-
-
-//        logoutButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                LoginAndRegistrationFrame loginAndRegistrationFrame=new LoginAndRegistrationFrame();
-//
-//            }
-//        });
     }
     public String getEditedUsername(){return editUsernameTextField.getText();}
     public String getEditedEmail(){return editEmailField.getText();}
@@ -364,6 +343,8 @@ public class ProfilePanel extends JPanel {
 
         JLabel usernameValue = new JLabel(user.getUserName());
         usernameValue.setFont(MainFrame.fontRegular.deriveFont(40F));
+        if(user.getBg() == 1)
+            usernameValue.setForeground(MainFrame.extraLightColor);
         gbc.gridx = 1;
         gbc.gridy = 1;
         mainPanel.add(usernameValue, gbc);
@@ -377,6 +358,8 @@ public class ProfilePanel extends JPanel {
 
         JLabel emailValue = new JLabel(user.getEmail());
         emailValue.setFont(MainFrame.fontRegular.deriveFont(40F));
+        if(user.getBg() == 1)
+            emailValue.setForeground(MainFrame.extraLightColor);
         gbc.gridx = 1;
         gbc.gridy = 2;
         mainPanel.add(emailValue, gbc);
@@ -403,6 +386,8 @@ public class ProfilePanel extends JPanel {
 
         JLabel userTypeValue = new JLabel(userType);
         userTypeValue.setFont(MainFrame.fontRegular.deriveFont(40F));
+        if(user.getBg() == 1)
+            userTypeValue.setForeground(MainFrame.extraLightColor);
         gbc.gridx = 1;
         gbc.gridy = 3;
         mainPanel.add(userTypeValue, gbc);

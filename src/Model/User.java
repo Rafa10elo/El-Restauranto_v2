@@ -21,7 +21,7 @@ public class User {
     enum MainColor {ORANGE, GREEN, RED}
     enum BgColor {DARK, LIGHT}
     MainColor mc= MainColor.ORANGE;
-    BgColor bg= BgColor.DARK;
+    BgColor bg= BgColor.LIGHT;
 
     // getters
     public int getUserType() {

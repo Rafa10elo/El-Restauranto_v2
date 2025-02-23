@@ -1,6 +1,7 @@
 package View;
 import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf ;
+import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -62,11 +63,18 @@ public class MainFrame extends JFrame {
     public JButton redB;
 
     public  MainFrame(User user, ProfilePanel profilePanel, ReportPanel reportPanel, AllOrdersPanel allOrdersPanel) {
-        try{
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (user.getBg() == 0){
+            try{
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+            try{
+                UIManager.setLookAndFeel(new FlatLightLaf());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("creating main frame");
         CardLayout cardLayout1 = new CardLayout();
@@ -196,13 +204,13 @@ public class MainFrame extends JFrame {
     public static void resetMainColor (int main){
         switch (main){
             case 0:
-                mainColor = new Color(206, 129, 76);
+                mainColor = orange;
                 break;
             case 1:
-                mainColor = new Color(113, 158, 109);
+                mainColor = green;
                 break;
             case 2:
-                mainColor = new Color(195, 75, 76);
+                mainColor = red;
                 break;
         }
     }
@@ -214,7 +222,9 @@ public class MainFrame extends JFrame {
                 extraLightColor = new Color(57, 59, 64) ;
                 break;
             case 1:
-                System.out.println("light theme");
+                darkBackground = new Color(192, 191, 191, 255) ;
+                lightBackground = new Color(169, 169, 169, 255) ;
+                extraLightColor = new Color(136, 136, 136, 255) ;
                 break;
         }
     }

@@ -26,7 +26,6 @@ public class LoginAndRegistrationFrame extends JFrame {
 
 
     public LoginAndRegistrationFrame(){
-
         try {
 
             UIManager.setLookAndFeel(new FlatDarkLaf());

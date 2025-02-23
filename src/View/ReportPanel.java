@@ -9,12 +9,12 @@ import java.util.Map;
 public class ReportPanel extends JPanel {
     public ReportPanel (Model.Report report,int numberOfUsers,int numberOfMeals){
 
-        try{
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        try{
+//            UIManager.setLookAndFeel(new FlatDarkLaf());
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
 
         setLayout(new BorderLayout());
         //title panel

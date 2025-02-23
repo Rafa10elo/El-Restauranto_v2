@@ -6,6 +6,8 @@ import Model.Order;
 import Model.Orders;
 import Model.User;
 import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+
 import java.util.List;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,16 +25,22 @@ public class AllOrdersPanel extends JPanel {
 
 
     public AllOrdersPanel (User user){
-        try{
-            UIManager.setLookAndFeel(new FlatDarkLaf());
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        if (user.getBg() == 0){
+            try{
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }else{
+            try{
+                UIManager.setLookAndFeel(new FlatLightLaf());
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
+
         setPreferredSize(new Dimension(1280,670));
         setLayout(new BorderLayout());
-
-
         if (0==user.getUserType())
         {
             theOrdersOfTheUser = orders.getOrdersForUser(user);
