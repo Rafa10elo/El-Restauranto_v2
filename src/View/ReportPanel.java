@@ -9,13 +9,6 @@ import java.util.Map;
 public class ReportPanel extends JPanel {
     public ReportPanel (Model.Report report,int numberOfUsers,int numberOfMeals){
 
-//        try{
-//            UIManager.setLookAndFeel(new FlatDarkLaf());
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException(e);
-//        }
-
         setLayout(new BorderLayout());
         //title panel
         JPanel titlePanel = new JPanel();
@@ -133,13 +126,13 @@ public class ReportPanel extends JPanel {
         gbc.weightx=1.0;
 
         JLabel titleLabel=createLabel(message1,fontBold);
-        titleLabel.setForeground(Color.white);
+        titleLabel.setForeground(MainFrame.mainColor);
         gbc.gridx=0;
         gbc.gridy=0;
         infoPanel.add(titleLabel,gbc);
 
         JLabel infoLabel =createLabel(message2,fontRegular);
-        infoLabel.setForeground(Color.white);
+        infoLabel.setForeground(MainFrame.differentColor);
         gbc.gridx=0;
         gbc.gridy=1;
         infoPanel.add(infoLabel,gbc);
@@ -176,18 +169,22 @@ public class ReportPanel extends JPanel {
         gbc.gridwidth=1;
         gbc.insets = new Insets(3,3,3,3);
         JLabel nameLabel = createLabel("Name:",MainFrame.fontBold.deriveFont(22F));
+        nameLabel.setForeground(MainFrame.mainColor);
         gbc.gridx=0;
         gbc.gridy=1;
         mealPanel.add(nameLabel,gbc);
         JLabel mealNameLabel = createLabel(meal.getMealName(),MainFrame.fontRegular.deriveFont(22F));
+        mealNameLabel.setForeground(MainFrame.differentColor);
         gbc.gridx=1;
         gbc.gridy=1;
         mealPanel.add(mealNameLabel,gbc);
         JLabel priceLabel = createLabel("Price:",MainFrame.fontBold.deriveFont(22F));
+        priceLabel.setForeground(MainFrame.mainColor);
         gbc.gridx=0;
         gbc.gridy=2;
         mealPanel.add(priceLabel,gbc);
         JLabel mealPriceLabel = createLabel(String.valueOf(meal.getPrice()),MainFrame.fontRegular.deriveFont(22F));
+        mealPriceLabel.setForeground(MainFrame.differentColor);
         gbc.gridx=1;
         gbc.gridy=2;
         mealPanel.add(mealPriceLabel,gbc);

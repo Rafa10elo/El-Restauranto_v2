@@ -1,5 +1,13 @@
-1
-2.4
-Pizzaxxx&@ cheese , paste , tomato &@2.4&@src/pics/2.jpg&@***1
+12
+312.9
+fried shrimp&@shrimpies :D&@3.4&@src/pics/3.jpg&@***7
+burger&@bread, beef, tomato, cheese&@2.0&@src/pics/7.jpg&@***2
+Pizzaxxx&@ cheese , paste , tomato &@2.4&@src/pics/2.jpg&@***4
+avocado with eggs&@look at the meal name&@7.3&@src/pics/8.jpg&@***5
+Hotdog&@meat ,bread ,mexican 7nkh  &@3.4&@src/pics/4.jpg&@***1
+noodles&@noodles, pepper, soy sauce&@5.0&@src/pics/5.jpg&@***2
+siniyah bl furn&@chicken, spices&@50.0&@src/pics/6.jpg&@***4
+patata&@potato, ketchub&@1.2&@src/pics/1.jpg&@***8
+magical soup&@it's a surprise !&@4.0&@src/pics/9.jpg&@***4
 #####
-AYA***a@gmail.com***123212321***0***=1
+AYA***a@gmail.com***123212321***0***=12

@@ -212,8 +212,8 @@ public class SidePanel extends JPanel {
                 public void focusGained(FocusEvent e) {
                     if (nameField.getText().equals("name")) {
                         nameField.setText("");
-                        nameField.setForeground(MainFrame.mainColor);
                     }
+                    nameField.setForeground(MainFrame.mainColor);
                     nameField.setBorder(new LineBorder(MainFrame.mainColor, 1));
                 }
 
@@ -221,8 +221,8 @@ public class SidePanel extends JPanel {
                 public void focusLost(FocusEvent e) {
                     if (nameField.getText().isEmpty()) {
                         nameField.setText("name");
-                        nameField.setForeground(MainFrame.extraLightColor);
                     }
+                    nameField.setForeground(MainFrame.extraLightColor);
                     nameField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                 }
             });
@@ -257,19 +257,29 @@ public class SidePanel extends JPanel {
             priceField.addFocusListener(new FocusAdapter() {
                 @Override
                 public void focusGained(FocusEvent e) {
-                    priceField.setBorder(new LineBorder(MainFrame.mainColor, 1));
                     if (priceField.getText().equals("price")) {
                         priceField.setText("");
+                    }
+                    if (!priceField.getText().matches("\\d+(\\.\\d+)?") && !priceField.getText().isEmpty()) {
+                        priceField.setBorder(new LineBorder(Color.RED, 1));
+                        priceField.setForeground(Color.RED);
+                    } else {
+                        priceField.setBorder(new LineBorder(MainFrame.mainColor, 1));
                         priceField.setForeground(MainFrame.mainColor);
                     }
                 }
 
                 @Override
                 public void focusLost(FocusEvent e) {
-                    priceField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                     if (priceField.getText().isEmpty()) {
                         priceField.setText("price");
+                    }
+                    if (!priceField.getText().matches("\\d+(\\.\\d+)?") && !priceField.getText().equals("price")) {
+                        priceField.setBorder(new LineBorder(Color.RED, 1));
+                        priceField.setForeground(Color.RED);
+                    } else {
                         priceField.setForeground(MainFrame.extraLightColor);
+                        priceField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                     }
                 }
             });
@@ -327,8 +337,8 @@ public class SidePanel extends JPanel {
                 public void focusGained(FocusEvent e) {
                     if (ingredientsField.getText().equals("ingredients")) {
                         ingredientsField.setText("");
-                        ingredientsField.setForeground(MainFrame.mainColor);
                     }
+                    ingredientsField.setForeground(MainFrame.mainColor);
                     ingredientsField.setBorder(new LineBorder(MainFrame.mainColor, 1));
                 }
 
@@ -336,8 +346,8 @@ public class SidePanel extends JPanel {
                 public void focusLost(FocusEvent e) {
                     if (ingredientsField.getText().isEmpty()) {
                         ingredientsField.setText("ingredients");
-                        ingredientsField.setForeground(MainFrame.extraLightColor);
                     }
+                    ingredientsField.setForeground(MainFrame.extraLightColor);
                     ingredientsField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
                 }
             });
@@ -443,8 +453,7 @@ public class SidePanel extends JPanel {
 
             totalPrice.setFont(MainFrame.fontBold.deriveFont(25f));
             totalPrice.setBackground(MainFrame.darkBackground);
-            if(user.getBg() == 1)
-                totalPrice.setForeground(MainFrame.extraLightColor);
+            totalPrice.setForeground(MainFrame.differentColor);
             totalPricePanel.add(totalPrice);
 
             JLabel dollar = new JLabel(" $");
@@ -474,8 +483,7 @@ public class SidePanel extends JPanel {
 
             tipsCombo.setFont(MainFrame.fontBold.deriveFont(25f));
             tipsCombo.setBackground(MainFrame.darkBackground);
-            if(user.getBg() == 1)
-                tipsCombo.setForeground(MainFrame.extraLightColor);
+            tipsCombo.setForeground(MainFrame.differentColor);
             tipsCombo.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
 
             tipPanel.add(tipLabel);
@@ -675,6 +683,7 @@ public class SidePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 creditCardId.setBackground(MainFrame.lightBackground);
                 creditCardId.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+                creditCardId.setForeground(MainFrame.differentColor);
                 creditCardId.setEnabled(true);
                 creditCardId.repaint();
             }
@@ -777,6 +786,7 @@ public class SidePanel extends JPanel {
         specialRequests.setPreferredSize(new Dimension(0, 30));
         specialRequests.setBackground(MainFrame.lightBackground);
         specialRequests.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+        specialRequests.setForeground(MainFrame.differentColor);
         paymentDialog.add(specialRequests, gbc) ;
 
         // cancel button

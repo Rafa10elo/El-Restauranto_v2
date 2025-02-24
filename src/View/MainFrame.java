@@ -49,14 +49,15 @@ public class MainFrame extends JFrame {
 
     // colors
     private static Color orange = new Color(206, 129, 76);
-    private static Color green = new Color(113, 158, 109);
-    private static Color red = new Color(195, 75, 76);
+    private static Color green = new Color(112, 158, 109);
+    private static Color red = new Color(214, 82, 83);
     public static Color darkBackground = new Color(30, 31, 34) ;
     public static Color lightBackground = new Color(43, 45, 48) ;
     public static Color extraLightColor = new Color(57, 59, 64) ;
     public static Color mainColor = orange;
-    public static ImageIcon sun = new ImageIcon("C:/Users/Lenovo/Desktop/sun-icon-8565 - Copy.png") ;
-    public static ImageIcon moon = new ImageIcon("C:/Users/Lenovo/Desktop/moon-icon-23631.png") ;
+    public static Color differentColor = new Color(207, 212, 199);
+    public static ImageIcon sun = new ImageIcon("src/View/FontsAndIcons/sun-icon.png") ;
+    public static ImageIcon moon = new ImageIcon("src/View/FontsAndIcons/moon-icon.png") ;
     public JButton backgroundSwitch;
     public JButton orangeB;
     public JButton greenB;
@@ -220,11 +221,13 @@ public class MainFrame extends JFrame {
                 darkBackground = new Color(30, 31, 34) ;
                 lightBackground = new Color(43, 45, 48) ;
                 extraLightColor = new Color(57, 59, 64) ;
+                differentColor = new Color(207, 212, 199);
                 break;
             case 1:
-                darkBackground = new Color(192, 191, 191, 255) ;
-                lightBackground = new Color(169, 169, 169, 255) ;
-                extraLightColor = new Color(136, 136, 136, 255) ;
+                darkBackground = new Color(217, 217, 217, 255) ;
+                lightBackground = new Color(178, 178, 178, 255) ;
+                extraLightColor = new Color(126, 126, 126, 255) ;
+                differentColor = extraLightColor.darker();
                 break;
         }
     }

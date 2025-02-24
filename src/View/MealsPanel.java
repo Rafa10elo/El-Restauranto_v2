@@ -30,7 +30,8 @@ public class MealsPanel extends JPanel {
     JButton editMeal = new JButton() ;
     JButton deleteMeal = new JButton() ;
     User user;
-    Color borderAction;
+    Color borderActionIn;
+    Color borderActionOut;
 
     public MealsPanel (User user) {
         this.user = user;
@@ -73,25 +74,27 @@ public class MealsPanel extends JPanel {
     }
 
     MealPanel createMealPanelTOMenu(Meal meal) {
-        MealPanel mealPanel = new MealPanel(meal) ;
+        MealPanel mealPanel = new MealPanel(meal, user.getBg()) ;
 
         // adding mouse listener to make the panel act like a button 🐰
         if (user.getBg() == 0){
-            borderAction = new Color(91, 94, 102);
+            borderActionIn = MainFrame.mainColor;
+            borderActionOut = MainFrame.extraLightColor;
         }else{
-            borderAction = Color.WHITE;
+            borderActionIn = MainFrame.extraLightColor;
+            borderActionOut = MainFrame.extraLightColor.brighter();
         }
         mealPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
-                mealPanel.setBorder(new LineBorder(borderAction, 1));
-                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, borderAction));
+                mealPanel.setBorder(new LineBorder(borderActionIn, 1));
+                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, borderActionIn));
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                mealPanel.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
-                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightColor));
+                mealPanel.setBorder(new LineBorder(borderActionOut, 1));
+                mealPanel.infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, borderActionOut));
             }
         });
         return mealPanel;

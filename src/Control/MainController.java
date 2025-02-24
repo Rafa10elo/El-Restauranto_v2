@@ -76,6 +76,7 @@ loginAndRegistrationFrame.addWindowListener(windowAdapter);
             public void actionPerformed(ActionEvent e) {
                 user = null;
                 mainFrame.dispose();
+                MainFrame.resetBackground(0); // TEMP--------------------------------------------------------------
                 loginAndRegistrationFrame = new LoginAndRegistrationFrame();
                 loginAndRegisterManager=new LoginAndRegisterManager(users,loginAndRegistrationFrame,user);
                 loginAndRegistrationFrame.addWindowListener(windowAdapter);

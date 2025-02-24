@@ -14,11 +14,14 @@ public class MealPanel extends JPanel {
     JTextArea mealIngredients ;
     JPanel infoPanel;
     Meal meal ;
-    public MealPanel (Meal meal) {
+    public MealPanel (Meal meal, int theme) {
         this.meal = meal ;
         setLayout(new BorderLayout());
         setBackground(MainFrame.darkBackground);
-        setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+        if (theme == 0)
+            setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+        else
+            setBorder(new LineBorder(MainFrame.extraLightColor.brighter(), 1));
 
         // meal image
         JPanel mealPhoto = new JPanel() ;
@@ -30,7 +33,10 @@ public class MealPanel extends JPanel {
         // meal info panel
         infoPanel = new JPanel(new GridBagLayout()) ;
         infoPanel.setBackground(MainFrame.darkBackground);
-        infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightColor));
+        if (theme == 0)
+            infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightColor));
+        else
+            infoPanel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, MainFrame.extraLightColor.brighter()));
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(0, 10, 10, 0) ;
 
@@ -56,7 +62,7 @@ public class MealPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         mealName = new JLabel(":   " + meal.getMealName());
-        mealName.setForeground(MainFrame.mainColor);
+        mealName.setForeground(MainFrame.differentColor);
         mealName.setFont(MainFrame.fontBold.deriveFont(20f));
         infoPanel.add(mealName, gbc);
 
@@ -82,7 +88,7 @@ public class MealPanel extends JPanel {
         gbc.weighty = 1.0;
         gbc.fill = GridBagConstraints.BOTH;
         mealPrice = new JLabel(":   " +String.valueOf(meal.getPrice()) + " $");
-        mealPrice.setForeground(MainFrame.mainColor);
+        mealPrice.setForeground(MainFrame.differentColor);
         mealPrice.setFont(MainFrame.fontBold.deriveFont(20f));
         infoPanel.add(mealPrice, gbc);
 
@@ -113,7 +119,7 @@ public class MealPanel extends JPanel {
         mealIngredients.setLineWrap(true);
         mealIngredients.setWrapStyleWord(true);
         mealIngredients.setEditable(false);
-        mealIngredients.setForeground(MainFrame.mainColor);
+        mealIngredients.setForeground(MainFrame.differentColor);
         mealIngredients.setFont(MainFrame.fontBold.deriveFont(20f));
         mealIngredients.setBorder(BorderFactory.createEmptyBorder());
         JScrollPane scrollPane = new JScrollPane(mealIngredients);

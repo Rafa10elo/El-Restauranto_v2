@@ -20,8 +20,8 @@ public class User {
     //themes
     enum MainColor {ORANGE, GREEN, RED}
     enum BgColor {DARK, LIGHT}
-    MainColor mc= MainColor.ORANGE;
-    BgColor bg= BgColor.LIGHT;
+    MainColor mc;
+    BgColor bg;
 
     // getters
     public int getUserType() {
@@ -79,12 +79,14 @@ public class User {
         this.bg = BgColor.DARK;
     }
 
-    public User(String userName, String email, String password, int userType, String imgSrc) {
+    public User(String userName, String email, String password, int userType, String imgSrc, MainColor mc, BgColor bg) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.userType = userType;
         this.imgSrc = imgSrc;
+        this.mc = mc;
+        this.bg = bg;
     }
 
     //    public void setUserType(int userType) {
@@ -92,7 +94,7 @@ public class User {
 //    }
 
     public String toFileFormat() {
-        String userString = userName + "***" + email + "***"+ password + "***" + userType + "***" + imgSrc + "***";
+        String userString = userName + "***" + email + "***"+ password + "***" + userType + "***" + imgSrc + "***" + mc.name() + "***" + bg.name() + "***";
 
         if(userType==0){
         for (Order order : orders.getOrdersForUser(this)) {
@@ -124,11 +126,13 @@ public class User {
                 System.out.println("There is a problem within the path of one of the users' images while reading it from the file");
                 imgSrc = "src/profilePics/profilePicture.png" ;
             }
+            MainColor mc = MainColor.valueOf(userParts[5]);
+            BgColor bg = BgColor.valueOf(userParts[6]);
 
-            User user = new User(userName,email,password, userType, imgSrc);
+            User user = new User(userName,email,password, userType, imgSrc, mc, bg);
 
-            if (userParts.length > 5 && userType==0) {
-                String[] orderStrings = userParts[4].split("---");
+            if (userParts.length > 7 && userType==0) {
+                String[] orderStrings = userParts[7].split("---");
                 for (String orderStr : orderStrings) {
                     Order order = Order.fromFileFormat(orderStr);
                     if (order != null) {

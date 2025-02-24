@@ -50,12 +50,8 @@ public class AllOrdersPanel extends JPanel {
             theOrdersOfTheUser = orders.getAllOrders();
         }
         int cnt=0;
-
-
-
-           cnt=theOrdersOfTheUser.size();
+        cnt=theOrdersOfTheUser.size();
         theWholeThingMaker(theOrdersOfTheUser,user,cnt);
-
     }
 
     JLabel createLabel(String message,Font font,float fontSize){
@@ -88,21 +84,28 @@ public class AllOrdersPanel extends JPanel {
         mealPanel.add(mealPicLabel, gbc);
 
         gbc.gridwidth=1;
+
         gbc.insets = new Insets(3,3,3,3);
         JLabel nameLabel = createLabel("Name:",MainFrame.fontBold,22);
-
+        nameLabel.setForeground(MainFrame.mainColor);
         gbc.gridx=0;
         gbc.gridy=1;
         mealPanel.add(nameLabel,gbc);
+
         JLabel mealNameLabel = createLabel(meal.getMealName(),MainFrame.fontRegular,22);
+        mealNameLabel.setForeground(MainFrame.differentColor);
         gbc.gridx=1;
         gbc.gridy=1;
         mealPanel.add(mealNameLabel,gbc);
+
         JLabel priceLabel = createLabel("Price:",MainFrame.fontBold,22);
+        priceLabel.setForeground(MainFrame.mainColor);
         gbc.gridx=0;
         gbc.gridy=2;
         mealPanel.add(priceLabel,gbc);
+
         JLabel mealPriceLabel = createLabel(String.valueOf(meal.getPrice()),MainFrame.fontRegular,22);
+        mealPriceLabel.setForeground(MainFrame.differentColor);
         gbc.gridx=1;
         gbc.gridy=2;
         mealPanel.add(mealPriceLabel,gbc);
@@ -141,34 +144,43 @@ public class AllOrdersPanel extends JPanel {
         orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.lightBackground));
 
         JPanel labelsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        labelsPanel.setBackground(MainFrame.lightBackground);
+        labelsPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, MainFrame.extraLightColor));
         orderPanel.add(labelsPanel,BorderLayout.NORTH);
         JLabel orderLabel = createLabel("Order no."+String.valueOf(cnt)+":                     ",MainFrame.fontBold,22);
         orderLabel.setForeground(MainFrame.mainColor);
         labelsPanel.add(orderLabel);
 
         JLabel timeTagLabel = createLabel("Time: ",MainFrame.fontBold,22);
+        timeTagLabel.setForeground(MainFrame.mainColor);
         labelsPanel.add(timeTagLabel);
 
         JLabel timeLabel = createLabel("",MainFrame.fontRegular, 22); //AYAAA
+        timeLabel.setForeground(MainFrame.differentColor);
         labelsPanel.add(timeLabel);
 
         JLabel priceTagLabel = createLabel("TotalPrice: ",MainFrame.fontBold,22);
+        priceTagLabel.setForeground(MainFrame.mainColor);
         labelsPanel.add(priceTagLabel);
 
         JLabel priceLabel = createLabel(String.valueOf(order.getTotalPrice()) +"          ",MainFrame.fontRegular, 22); //AYAAAA
+        priceLabel.setForeground(MainFrame.differentColor);
         labelsPanel.add(priceLabel);
 
-        String orderState = "";
 
         JLabel stateTagLabel = createLabel("Order State: ",MainFrame.fontBold,22);
+        stateTagLabel.setForeground(MainFrame.mainColor);
         labelsPanel.add(stateTagLabel);
 
 
+        String orderState = "";
         JLabel stateLabel = createLabel(orderState+"          ",MainFrame.fontRegular,22);
+        stateLabel.setForeground(MainFrame.differentColor);
         labelsPanel.add(stateLabel);
 
 
         JLabel dineTagLabel = createLabel("          Order Type: ",MainFrame.fontBold,22);
+        dineTagLabel.setForeground(MainFrame.mainColor);
         labelsPanel.add(dineTagLabel);
 
         String type;
@@ -176,12 +188,15 @@ public class AllOrdersPanel extends JPanel {
             type="Dine-In";
         else type="Delivery";
         JLabel dineLabel = createLabel(type+"          ",MainFrame.fontRegular,22);
+        dineLabel.setForeground(MainFrame.differentColor);
         labelsPanel.add(dineLabel);
 
         if(user.getUserType()!=0){
             JLabel userTagLabel = createLabel("User: ",MainFrame.fontBold,22);
+            userTagLabel.setForeground(MainFrame.mainColor);
             labelsPanel.add(userTagLabel);
             JLabel userLabel = createLabel(order.getUsername(),MainFrame.fontRegular,22);
+            userLabel.setForeground(MainFrame.differentColor);
             labelsPanel.add(userLabel);
         }
 
@@ -204,12 +219,13 @@ public class AllOrdersPanel extends JPanel {
         miniAllOrdersPanel.setLayout(new BoxLayout(miniAllOrdersPanel, BoxLayout.Y_AXIS));
         miniAllOrdersPanel.setBackground(MainFrame.darkBackground);
         miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)));
+        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)),0);
 
         for(int i=0; i<cnt;i++){
             JPanel orderPanel= createOrderPanel(user,theOrdersOfTheUser.get(i),i+1);
             orderPanel.setBorder(BorderFactory.createMatteBorder(1,1,1,1,MainFrame.mainColor));
-            miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)),0);
             miniAllOrdersPanel.add(orderPanel,0);
+            miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0,10)),0);
         }
 
         JScrollPane scrollPane = new JScrollPane(miniAllOrdersPanel);
@@ -226,8 +242,8 @@ public class AllOrdersPanel extends JPanel {
     public void addNewOrder(Order order, User user, Orders orders) {
         JPanel newOrderPanel = createOrderPanel(user,order, orders.getOrdersForUser(user).size());
         newOrderPanel.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, MainFrame.mainColor));
-        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)),0);
         miniAllOrdersPanel.add(newOrderPanel,0);
+        miniAllOrdersPanel.add(Box.createRigidArea(new Dimension(0, 10)),0);
         miniAllOrdersPanel.revalidate();
         miniAllOrdersPanel.repaint();
     }

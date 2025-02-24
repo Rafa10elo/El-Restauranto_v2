@@ -134,8 +134,25 @@ public class ProfilePanel extends JPanel {
 
         editUsernameTextField = new JTextField(user.getUserName(), 15);
         editUsernameTextField.setFont(fieldsFont.deriveFont(30f));
-        if(user.getBg() == 1)
-            editUsernameTextField.setForeground(Color.DARK_GRAY);
+        editUsernameTextField.setForeground(MainFrame.differentColor);
+        editUsernameTextField.setBackground(MainFrame.darkBackground);
+        editUsernameTextField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+        editUsernameTextField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                editUsernameTextField.setForeground(MainFrame.mainColor);
+                editUsernameTextField.setBorder(new LineBorder(MainFrame.mainColor, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (editUsernameTextField.getText().isEmpty()) {
+                    editUsernameTextField.setText(user.getUserName());
+                }
+                if(user.getBg() == 1)
+                    editUsernameTextField.setForeground(MainFrame.extraLightColor);
+                editUsernameTextField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+            }
+        });
         gbc.gridx = 1;
         gbc.gridy = 0;
         editUsernameTextField.addActionListener(e -> editEmailField.requestFocus());
@@ -152,8 +169,25 @@ public class ProfilePanel extends JPanel {
 
         editEmailField = new JTextField(user.getEmail(), 15);
         editEmailField.setFont(fieldsFont.deriveFont(30f));
-        if(user.getBg() == 1)
-            editEmailField.setForeground(Color.DARK_GRAY);
+        editEmailField.setForeground(MainFrame.differentColor);
+        editEmailField.setBackground(MainFrame.darkBackground);
+        editEmailField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+        editEmailField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                editEmailField.setForeground(MainFrame.mainColor);
+                editEmailField.setBorder(new LineBorder(MainFrame.mainColor, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (editEmailField.getText().isEmpty()) {
+                    editEmailField.setText(user.getUserName());
+                }
+                if(user.getBg() == 1)
+                    editEmailField.setForeground(MainFrame.extraLightColor);
+                editEmailField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+            }
+        });
         gbc.gridx = 1;
         gbc.gridy = 1;
         editEmailField.addActionListener(e -> editPasswordField.requestFocus());
@@ -170,8 +204,25 @@ public class ProfilePanel extends JPanel {
 
         editPasswordField = new JTextField(user.getPassword(), 15);
         editPasswordField.setFont(fieldsFont.deriveFont(30f));
-        if(user.getBg() == 1)
-            editPasswordField.setForeground(Color.DARK_GRAY);
+        editPasswordField.setForeground(MainFrame.differentColor);
+        editPasswordField.setBackground(MainFrame.darkBackground);
+        editPasswordField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+        editPasswordField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                editPasswordField.setForeground(MainFrame.mainColor);
+                editPasswordField.setBorder(new LineBorder(MainFrame.mainColor, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (editPasswordField.getText().isEmpty()) {
+                    editPasswordField.setText(user.getUserName());
+                }
+                if(user.getBg() == 1)
+                    editPasswordField.setForeground(MainFrame.extraLightColor);
+                editPasswordField.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+            }
+        });
         gbc.gridx = 1;
         gbc.gridy = 2;
         editPasswordField.addKeyListener(new KeyAdapter() {
@@ -343,8 +394,7 @@ public class ProfilePanel extends JPanel {
 
         JLabel usernameValue = new JLabel(user.getUserName());
         usernameValue.setFont(MainFrame.fontRegular.deriveFont(40F));
-        if(user.getBg() == 1)
-            usernameValue.setForeground(MainFrame.extraLightColor);
+        usernameValue.setForeground(MainFrame.differentColor);
         gbc.gridx = 1;
         gbc.gridy = 1;
         mainPanel.add(usernameValue, gbc);
@@ -358,8 +408,7 @@ public class ProfilePanel extends JPanel {
 
         JLabel emailValue = new JLabel(user.getEmail());
         emailValue.setFont(MainFrame.fontRegular.deriveFont(40F));
-        if(user.getBg() == 1)
-            emailValue.setForeground(MainFrame.extraLightColor);
+        emailValue.setForeground(MainFrame.differentColor);
         gbc.gridx = 1;
         gbc.gridy = 2;
         mainPanel.add(emailValue, gbc);
@@ -386,8 +435,7 @@ public class ProfilePanel extends JPanel {
 
         JLabel userTypeValue = new JLabel(userType);
         userTypeValue.setFont(MainFrame.fontRegular.deriveFont(40F));
-        if(user.getBg() == 1)
-            userTypeValue.setForeground(MainFrame.extraLightColor);
+        userTypeValue.setForeground(MainFrame.differentColor);
         gbc.gridx = 1;
         gbc.gridy = 3;
         mainPanel.add(userTypeValue, gbc);
