@@ -47,8 +47,6 @@ public class ProfileController {
                 }
             }
         });
-
-
     }
      void updateUser(){
         User user = users.findUser(profilePanel.getEditedUsername());

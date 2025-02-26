@@ -18,8 +18,8 @@ public class User {
     Orders orders = Orders.getOrdersSing();
     //private boolean isLoggedIn;
     //themes
-    enum MainColor {ORANGE, GREEN, RED}
-    enum BgColor {DARK, LIGHT}
+    public static enum MainColor {ORANGE, GREEN, RED}
+    public static enum BgColor {DARK, LIGHT}
     MainColor mc;
     BgColor bg;
 
@@ -74,19 +74,19 @@ public class User {
         this.email = email;
         this.password = password;
         this.userType = userType;
-        this.imgSrc = "src/profilePics/profilePicture.png";
+        this.imgSrc = "DEFAULT";
         this.mc = MainColor.ORANGE;
         this.bg = BgColor.DARK;
     }
 
-    public User(String userName, String email, String password, int userType, String imgSrc, MainColor mc, BgColor bg) {
+    public User(String userName, String email, String password, int userType, MainColor mc, BgColor bg, String imgSrc) {
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.userType = userType;
-        this.imgSrc = imgSrc;
         this.mc = mc;
         this.bg = bg;
+        this.imgSrc = imgSrc;
     }
 
     //    public void setUserType(int userType) {
@@ -94,7 +94,7 @@ public class User {
 //    }
 
     public String toFileFormat() {
-        String userString = userName + "***" + email + "***"+ password + "***" + userType + "***" + imgSrc + "***" + mc.name() + "***" + bg.name() + "***";
+        String userString = userName + "***" + email + "***"+ password + "***" + userType + "***" + mc.name() + "***" + bg.name() + "***" + imgSrc + "***" ;
 
         if(userType==0){
         for (Order order : orders.getOrdersForUser(this)) {
@@ -114,22 +114,27 @@ public class User {
             String password = userParts[2];
             int userType= Integer.parseInt(userParts[3]);
 
+            MainColor mc = MainColor.valueOf(userParts[4]);
+            BgColor bg = BgColor.valueOf(userParts[5]);
+
             // checking the path for the img
             String imgSrc;
-            String path = userParts[4].replace("\\", "/") ;
-            File temp = new File(path) ;
-            boolean tempIsImg = temp.getPath().endsWith(".jpg") || temp.getPath().endsWith(".jpeg") || temp.getPath().endsWith(".png")
-                    || temp.getPath().endsWith(".gif") || temp.getPath().endsWith(".bmp") ;
-            if (temp.exists() && tempIsImg && path.contains("src/profilePics")){
-                imgSrc = path.substring(path.indexOf("src")) ;
-            }else{
-                System.out.println("There is a problem within the path of one of the users' images while reading it from the file");
-                imgSrc = "src/profilePics/profilePicture.png" ;
+            String path = userParts[6].replace("\\", "/") ;
+            if(path.equals("DEFAULT"))
+                imgSrc = path;
+            else {
+                File temp = new File(path) ;
+                boolean tempIsImg = temp.getPath().endsWith(".jpg") || temp.getPath().endsWith(".jpeg") || temp.getPath().endsWith(".png")
+                        || temp.getPath().endsWith(".gif") || temp.getPath().endsWith(".bmp") ;
+                if (temp.exists() && tempIsImg && path.contains("src/profilePics"))
+                    imgSrc = path.substring(path.indexOf("src")) ;
+                else{
+                    System.out.println("There is a problem within the path of one of the users' images while reading it from the file");
+                    imgSrc = "DEFAULT" ;
+                }
             }
-            MainColor mc = MainColor.valueOf(userParts[5]);
-            BgColor bg = BgColor.valueOf(userParts[6]);
 
-            User user = new User(userName,email,password, userType, imgSrc, mc, bg);
+            User user = new User(userName,email,password, userType, mc, bg, imgSrc);
 
             if (userParts.length > 7 && userType==0) {
                 String[] orderStrings = userParts[7].split("---");
@@ -162,6 +167,8 @@ public class User {
     }
 
     public boolean saveImgToProject() {
+        if(imgSrc.equals("DEFAULT"))
+            return true;
         if(!imgSrc.contains("src/profilePics") ){
             try{
                 BufferedImage localImg = ImageIO.read(new File(imgSrc));
@@ -172,12 +179,12 @@ public class User {
                     imgSrc = file.getPath();
                 }else{
                     System.out.println("img not saved for some reason");
-                    imgSrc = "src/profilePics/profilePicture.png" ;
+                    imgSrc = "DEFAULT" ;
                 }
                 return saveImg;
             }catch (IOException e){
                 System.out.println("IO exception in image saving");
-                imgSrc = "src/profilePics/profilePicture.png" ;
+                imgSrc = "DEFAULT" ;
                 return false;
             }
         }

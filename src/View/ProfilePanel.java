@@ -57,7 +57,10 @@ public class ProfilePanel extends JPanel {
         add(profileSidebarPanel, BorderLayout.WEST);
 
         profileImgPath = user.getImgSrc();
-        img = Toolkit.getDefaultToolkit().getImage(profileImgPath).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+        if (profileImgPath.equals("DEFAULT")){
+            img = Toolkit.getDefaultToolkit().getImage(setDefaultImg(user.getMc(), user.getBg())).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+        }else
+            img = Toolkit.getDefaultToolkit().getImage(profileImgPath).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
         profilePicLabel = new JLabel(new ImageIcon(img));
         profilePicLabel.setHorizontalAlignment(SwingConstants.CENTER);
         profileSidebarPanel.add(profilePicLabel, BorderLayout.NORTH);
@@ -318,11 +321,12 @@ public class ProfilePanel extends JPanel {
         removeImg.setFont(MainFrame.fontBold);
         removeImg.setBackground(MainFrame.darkBackground);
         removeImg.setBorder(new LineBorder(MainFrame.extraLightColor, 1));
+        //------------------------------------------------------------------------------------------------------
         removeImg.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                profileImgPath = "src/profilePics/profilePicture.png";
-                img = Toolkit.getDefaultToolkit().getImage(profileImgPath).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
+                profileImgPath = "DEFAULT";
+                img = Toolkit.getDefaultToolkit().getImage(setDefaultImg(user.getMc(), user.getBg())).getScaledInstance(180, 180, Image.SCALE_SMOOTH);
                 profilePicLabel.setIcon(new ImageIcon(img));
                 profilePicLabel.repaint();
                 profilePicLabel.revalidate();
@@ -441,5 +445,19 @@ public class ProfilePanel extends JPanel {
         mainPanel.add(userTypeValue, gbc);
 
         return mainPanel;
+    }
+    public String setDefaultImg(int mc, int bg) {
+        if (mc == User.MainColor.ORANGE.ordinal() && bg == User.BgColor.DARK.ordinal())
+            return  "src/profilePics/profilePictureOrangeDark.png" ;
+        else if (mc == User.MainColor.ORANGE.ordinal() && bg == User.BgColor.LIGHT.ordinal())
+            return "src/profilePics/profilePictureOrangeLight.png" ;
+        else if (mc == User.MainColor.GREEN.ordinal() && bg == User.BgColor.DARK.ordinal())
+            return "src/profilePics/profilePictureGreenDark.png" ;
+        else if (mc == User.MainColor.GREEN.ordinal() && bg == User.BgColor.LIGHT.ordinal())
+            return "src/profilePics/profilePictureGreenLight.png" ;
+        else if (mc == User.MainColor.RED.ordinal() && bg == User.BgColor.DARK.ordinal())
+            return "src/profilePics/profilePictureRedDark.png" ;
+        else
+            return "src/profilePics/profilePictureRedLight.png" ;
     }
 }
