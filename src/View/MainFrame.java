@@ -56,8 +56,6 @@ public class MainFrame extends JFrame {
     public static Color extraLightColor = new Color(57, 59, 64) ;
     public static Color mainColor = orange;
     public static Color differentColor = new Color(207, 212, 199);
-    public static ImageIcon sun = new ImageIcon("src/View/FontsAndIcons/sun-icon.png") ;
-    public static ImageIcon moon = new ImageIcon("src/View/FontsAndIcons/moon-icon.png") ;
     public JButton backgroundSwitch;
     public JButton orangeB;
     public JButton greenB;
@@ -125,12 +123,74 @@ public class MainFrame extends JFrame {
         colorsPanel.add(redB);
         navigationBarPanel.add(colorsPanel);
             // background button
-        if (user.getBg() == 0)
-            backgroundSwitch = new JButton(moon);
-        else
-            backgroundSwitch = new JButton(sun);
+        if (user.getBg() == 0){
+            backgroundSwitch = new JButton(){
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                    // Moon size
+                    int moonWidth = 35;
+                    int moonHeight = 25;
+
+                    // Center the moon inside the button
+                    int x = (getWidth() - moonWidth) / 2;
+                    int y = (getHeight() - moonHeight) / 2;
+
+                    // Draw the full moon
+                    g2d.setColor(extraLightColor.brighter());
+                    if (getModel().isRollover())
+                        g2d.setColor(mainColor);
+                    g2d.fillOval(x, y, moonWidth, moonHeight);
+
+                    // Subtract a smaller oval to create a crescent
+                    g2d.setColor(getParent().getBackground());
+                    g2d.fillOval(x + moonWidth / 3 + 2, y - 5, moonWidth - 10, moonHeight - 5);
+                }
+            };
+        }
+        else{
+            backgroundSwitch = new JButton(){
+                @Override
+                protected void paintComponent(Graphics g) {
+                    super.paintComponent(g);
+                    Graphics2D g2d = (Graphics2D) g;
+                    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+                    // Sun size
+                    int sunSize = 14;
+                    int centerX = getWidth() / 2;
+                    int centerY = getHeight() / 2;
+
+                    // Draw the sun (center circle)
+                    g2d.setColor(differentColor);
+                    if (getModel().isRollover())
+                        g2d.setColor(mainColor);
+                    g2d.fillOval(centerX - sunSize / 2, centerY - sunSize / 2, sunSize, sunSize);
+
+                    // Draw sun rays
+                    int rayLength = 6;
+                    int gap = 4; // Distance from sun to ray start
+                    int rayThickness = 2;
+
+                    for (int i = 0; i < 8; i++) {
+                        double angle = Math.toRadians(i * 45);
+                        int x1 = centerX + (int) ((sunSize / 2 + gap) * Math.cos(angle));
+                        int y1 = centerY + (int) ((sunSize / 2 + gap) * Math.sin(angle));
+                        int x2 = centerX + (int) ((sunSize / 2 + gap + rayLength) * Math.cos(angle));
+                        int y2 = centerY + (int) ((sunSize / 2 + gap + rayLength) * Math.sin(angle));
+
+                        g2d.setStroke(new BasicStroke(rayThickness));
+                        g2d.drawLine(x1, y1, x2, y2);
+                    }
+                }
+            };
+        }
+        backgroundSwitch.setFocusPainted(false);
         backgroundSwitch.setBorderPainted(false);
-        backgroundSwitch.setBorderPainted(false);
+        backgroundSwitch.setContentAreaFilled(false);
         backgroundSwitch.setBackground(lightBackground);
         backgroundSwitch.setPreferredSize(new Dimension(50, 40));
         navigationBarPanel.add(backgroundSwitch);
