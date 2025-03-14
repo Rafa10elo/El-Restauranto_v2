@@ -1,14 +1,13 @@
 package View;
 
+import com.formdev.flatlaf.FlatDarkLaf;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
+import java.awt.event.*;
+
 import static View.LoginAndRegistrationFrame.fieldsFont;
 
 public class RegisterPanel extends JPanel {
@@ -25,34 +24,80 @@ public class RegisterPanel extends JPanel {
     JButton backButton;
 
     public RegisterPanel(JPanel mainPanel, CardLayout cardLayout) {
+        try {
+            UIManager.setLookAndFeel(new FlatDarkLaf());
+        } catch (Exception e) {
+            System.out.println("Failed to initialize FlatLaf");
+        }
+
         setLayout(new GridBagLayout());
-        JPanel centralPanel = new JPanel();
-        centralPanel.setLayout(new GridBagLayout());
-        centralPanel.setBorder(BorderFactory.createLineBorder(MainFrame.mainColor, 3));
-        centralPanel.setBackground(MainFrame.darkBackground);
+        setLayout(new GridBagLayout());
+        setBackground(MainFrame.darkBackground);
         GridBagConstraints gbc = new GridBagConstraints();
 
-        gbc.insets = new Insets(20, 20, 20, 20);
+        gbc.insets = new Insets(20, 0, 20, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
 
+        // Username
         JLabel userLabel = createJLabel("Username:", gbc, 0, 0);
         gbc.gridwidth = 1;
-        centralPanel.add(userLabel, gbc);
+        add(userLabel, gbc);
 
-        userField = new JTextField(15);
+        userField = new JTextField(" Enter your username",20);
         gbc.gridx = 1;
-        userField.setFont(fieldsFont);
-        userField.setBorder(new LineBorder(MainFrame.extraLightColor,1));
+        userField.setFont(LoginAndRegistrationFrame.fieldsFont.deriveFont(20f));
+        userField.setBackground(LoginPanel.darkGray);
+        userField.setForeground(LoginPanel.extraLightGray);
+        userField.setBorder(new LineBorder(LoginPanel.extraLightGray,1));
+        userField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (userField.getText().equals(" Enter your username")) {
+                    userField.setText("");
+                }
+                userField.setForeground(LoginPanel.white);
+                userField.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (userField.getText().isEmpty()) {
+                    userField.setText(" Enter your username");
+                    userField.setForeground(LoginPanel.extraLightGray);
+                }
+                userField.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+            }
+        });
         userField.addActionListener(e -> emailField.requestFocus());
-        centralPanel.add(userField, gbc);
+        add(userField, gbc);
 
+        // Email
         JLabel emailLabel = createJLabel("Email:", gbc, 0, 1);
+        add(emailLabel, gbc);
 
-        centralPanel.add(emailLabel, gbc);
-
-         emailField = new JTextField(15);
-        emailField.setFont(fieldsFont);
+        emailField = new JTextField(" Enter your email", 20);
+        emailField.setFont(LoginAndRegistrationFrame.fieldsFont.deriveFont(20f));
+        emailField.setBackground(LoginPanel.darkGray);
+        emailField.setForeground(LoginPanel.extraLightGray);
+        emailField.setBorder(new LineBorder(LoginPanel.extraLightGray,1));
+        emailField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (emailField.getText().equals(" Enter your email")) {
+                    emailField.setText("");
+                }
+                emailField.setForeground(LoginPanel.white);
+                emailField.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (emailField.getText().isEmpty()) {
+                    emailField.setText(" Enter your email");
+                    emailField.setForeground(LoginPanel.extraLightGray);
+                }
+                emailField.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+            }
+        });
 
         gbc.gridx = 1;
         emailField.setBorder(new LineBorder(MainFrame.extraLightColor,1));
@@ -84,18 +129,38 @@ public class RegisterPanel extends JPanel {
         });
 
         emailField.addActionListener(e -> passField.requestFocus());
-        centralPanel.add(emailField, gbc);
+        add(emailField, gbc);
 
+        // Password
         JLabel passLabel = createJLabel("Password:", gbc, 0, 2);
-        centralPanel.add(passLabel, gbc);
-
+        add(passLabel, gbc);
 
         JPanel passwordEntryPanel = new JPanel(new GridBagLayout());
+        passwordEntryPanel.setBorder(new LineBorder(LoginPanel.extraLightGray,1));
+        passField = new JPasswordField(" Enter your password", 20);
+        passField.setBorder(null);
+        passField.setFont(LoginAndRegistrationFrame.fieldsFont.deriveFont(20f));
+        passField.setBackground(LoginPanel.darkGray);
+        passField.setForeground(LoginPanel.extraLightGray);
+        passField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (passField.getText().equals(" Enter your password")) {
+                    passField.setText("");
+                }
+                passField.setForeground(LoginPanel.white);
+                passwordEntryPanel.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (passField.getText().isEmpty()) {
+                    passField.setText(" Enter your password");
+                    passField.setForeground(LoginPanel.extraLightGray);
+                }
+                passwordEntryPanel.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+            }
+        });
 
-         passField = new JPasswordField(14);
-        passField.setFont(fieldsFont);
-
-        passField.setBorder(new LineBorder(new Color(70,73,75)));
         GridBagConstraints gbc1 = new GridBagConstraints();
         gbc1.gridx = 0;
         gbc1.gridy = 0;
@@ -111,26 +176,22 @@ public class RegisterPanel extends JPanel {
                 super.keyTyped(e);
                 int test = passwordCheck(passField.getText());
                 if(passField.getText().equals(""))
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,new Color(70,73,75)));
                 else if(test==0)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.red));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.red));
                 else if (test == 1)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.ORANGE));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.ORANGE));
                 else if (test == 2)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.YELLOW));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.YELLOW));
                 else if (test == 3)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.GREEN));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.GREEN));
                 else if (test == 4)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.cyan));
-
-
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.cyan));
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                if(passField.getText().equals(""))
-                    passField.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
             }
 
             @Override
@@ -138,17 +199,17 @@ public class RegisterPanel extends JPanel {
                 super.keyReleased(e);
                 int test = passwordCheck(passField.getText());
                 if(passField.getText().equals(""))
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,new Color(70,73,75)));
                 else if(test==0)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.red));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.red));
                 else if (test == 1)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.ORANGE));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.ORANGE));
                 else if (test == 2)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.YELLOW));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.YELLOW));
                 else if (test == 3)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.GREEN));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.GREEN));
                 else if (test == 4)
-                    passwordEntryPanel.setBorder(new MatteBorder(0,0,2,0,Color.cyan));
+                    passwordEntryPanel.setBorder(new MatteBorder(0,0,1,0,Color.cyan));
 
             }
         });
@@ -156,21 +217,18 @@ public class RegisterPanel extends JPanel {
         passwordEntryPanel.add(passField,gbc1);
 
         JCheckBox showPasswordCheckbox = new JCheckBox();
-        showPasswordCheckbox.setForeground(MainFrame.mainColor);
-        showPasswordCheckbox.setFont(MainFrame.fontRegular);
         showPasswordCheckbox.setOpaque(false);
-       gbc1.gridx = 10;
-       gbc1.weightx = 0.2;
-       gbc1.gridwidth = 1;
-       gbc1.anchor = GridBagConstraints.EAST;
-
-       showPasswordCheckbox.setSize(8,8);
+        gbc1.gridx = 10;
+        gbc1.weightx = 0.2;
+        gbc1.gridwidth = 1;
+        gbc1.anchor = GridBagConstraints.EAST;
+        showPasswordCheckbox.setSize(8,8);
 
         passwordEntryPanel.add(showPasswordCheckbox,gbc1);
-        passwordEntryPanel.setBackground(new Color(70,73,75));
-        passwordEntryPanel.setBorder(new LineBorder(MainFrame.extraLightColor,1));
+        passwordEntryPanel.setBackground(LoginPanel.darkGray);
+        passwordEntryPanel.setBorder(new LineBorder(LoginPanel.extraLightGray,1));
         gbc.gridx = 1;
-       centralPanel.add(passwordEntryPanel, gbc);
+        add(passwordEntryPanel, gbc);
 
         showPasswordCheckbox.addActionListener(e -> {
             if (showPasswordCheckbox.isSelected()) {
@@ -180,28 +238,48 @@ public class RegisterPanel extends JPanel {
             }
         });
         JLabel confirmPassLabel = createJLabel("Confirm Password:", gbc, 0, 3);
-        centralPanel.add(confirmPassLabel, gbc);
+        add(confirmPassLabel, gbc);
 
+        // Confirm password
         JPanel passwordEntryPanel1 = new JPanel(new GridBagLayout());
-         passCheckField = new JPasswordField(14);
-        passCheckField.setFont(fieldsFont);
-
-        passCheckField.setBorder(new LineBorder(new Color(70,73,75)));
+        passwordEntryPanel1.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+        passCheckField = new JPasswordField(" Confirm your password", 20);
+        passCheckField.setFont(LoginAndRegistrationFrame.fieldsFont.deriveFont(20f));
+        passCheckField.setBorder(null);
+        passCheckField.setBackground(LoginPanel.darkGray);
+        passCheckField.setForeground(LoginPanel.extraLightGray);
+        passCheckField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (passCheckField.getText().equals(" Confirm your password")) {
+                    passCheckField.setText("");
+                }
+                passCheckField.setForeground(LoginPanel.white);
+                passwordEntryPanel1.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (passCheckField.getText().isEmpty()) {
+                    passCheckField.setText(" Confirm your password");
+                    passCheckField.setForeground(LoginPanel.extraLightGray);
+                }
+                passwordEntryPanel1.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+            }
+        });
         passCheckField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 super.keyTyped(e);
                 boolean test = checkingThePass(passField.getText(),passCheckField.getText());
                 if(!test)
-                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,2,0,Color.red));
+                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,1,0,Color.red));
                 else
-                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
+                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,1,0,new Color(70,73,75)));
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-
             }
 
             @Override
@@ -209,9 +287,9 @@ public class RegisterPanel extends JPanel {
                 super.keyReleased(e);
                 boolean test = checkingThePass(passField.getText(),passCheckField.getText());
                 if(!test)
-                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,2,0,Color.red));
+                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,1,0,Color.red));
                 else
-                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,2,0,new Color(70,73,75)));
+                    passwordEntryPanel1.setBorder(new MatteBorder(0,0,1,0,new Color(70,73,75)));
             }
         });
         gbc1.gridx = 0;
@@ -226,21 +304,18 @@ public class RegisterPanel extends JPanel {
         passwordEntryPanel1.add(passCheckField,gbc1);
 
         JCheckBox showPasswordCheckCheckbox = new JCheckBox();
-        showPasswordCheckCheckbox.setForeground(MainFrame.mainColor);
-        showPasswordCheckCheckbox.setFont(MainFrame.fontRegular);
+        showPasswordCheckCheckbox.setBackground(LoginPanel.darkGray);
         showPasswordCheckCheckbox.setOpaque(false);
         gbc1.gridx = 10;
         gbc1.weightx = 0.2;
         gbc1.gridwidth = 1;
         gbc1.anchor = GridBagConstraints.EAST;
-
         showPasswordCheckCheckbox.setSize(8,8);
-
         passwordEntryPanel1.add(showPasswordCheckCheckbox,gbc1);
-        passwordEntryPanel1.setBackground(new Color(70,73,75));
-        passwordEntryPanel1.setBorder(new LineBorder(MainFrame.extraLightColor,1));
+        passwordEntryPanel1.setBackground(LoginPanel.darkGray);
         gbc.gridx = 1;
-        centralPanel.add(passwordEntryPanel1, gbc);
+        add(passwordEntryPanel1, gbc);
+
         showPasswordCheckCheckbox.addActionListener(e -> {
             if (showPasswordCheckCheckbox.isSelected()) {
                 passCheckField.setEchoChar((char) 0);
@@ -249,22 +324,23 @@ public class RegisterPanel extends JPanel {
             }
         });
 
+        // User type
         JLabel chooseUserLabel = createJLabel("User:", gbc, 0, 4);
-        centralPanel.add(chooseUserLabel, gbc);
+        add(chooseUserLabel, gbc);
 
-         chooseCustomerButton = new JRadioButton("Customer");
-        chooseCustomerButton.setFont(MainFrame.fontBold.deriveFont(20F));
-         chooseEmployeeButton = new JRadioButton("Employee");
-        chooseEmployeeButton.setFont(MainFrame.fontBold.deriveFont(20F));
-         chooseManagerButton = new JRadioButton("Manager");
-        chooseManagerButton.setFont(MainFrame.fontBold.deriveFont(20F));
+        chooseCustomerButton = new JRadioButton("Customer");
+        chooseCustomerButton.setFont(MainFrame.fontBold.deriveFont(25f));
+        chooseEmployeeButton = new JRadioButton("Employee");
+        chooseEmployeeButton.setFont(MainFrame.fontBold.deriveFont(25f));
+        chooseManagerButton = new JRadioButton("Manager");
+        chooseManagerButton.setFont(MainFrame.fontBold.deriveFont(25f));
 
         ButtonGroup userChoice = new ButtonGroup();
         userChoice.add(chooseCustomerButton);
         userChoice.add(chooseEmployeeButton);
         userChoice.add(chooseManagerButton);
 
-        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));
+        JPanel radioPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 35, 0));
         radioPanel.setBackground(MainFrame.darkBackground);
         radioPanel.add(chooseCustomerButton);
         radioPanel.add(chooseEmployeeButton);
@@ -274,47 +350,101 @@ public class RegisterPanel extends JPanel {
         gbc.gridx = 0;
         gbc.gridy = 5;
         gbc.gridwidth = 2;
-        centralPanel.add(radioPanel, gbc);
+        add(radioPanel, gbc);
 
+        // Code field
         JLabel optionalFieldLabel = createJLabel("Employee/Manager Code:", gbc, 0, 6);
-        centralPanel.add(optionalFieldLabel, gbc);
+        add(optionalFieldLabel, gbc);
 
         optionalField = new JTextField(5);
-        optionalField.setFont(fieldsFont);
+        optionalField.setFont(LoginAndRegistrationFrame.fieldsFont.deriveFont(20f));
+        optionalField.setBackground(LoginPanel.darkGray);
+        optionalField.setForeground(LoginPanel.extraLightGray);
+        optionalField.setBorder(new LineBorder(LoginPanel.extraLightGray,1));
+        optionalField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (optionalField.getText().equals(" Enter code")) {
+                    optionalField.setText("");
+                }
+                optionalField.setForeground(LoginPanel.white);
+                optionalField.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (optionalField.getText().isEmpty()) {
+                    optionalField.setText(" Enter code");
+                    optionalField.setForeground(LoginPanel.extraLightGray);
+                }
+                optionalField.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+            }
+        });
+
 
         optionalField.setEnabled(false);
         gbc.gridx = 1;
-        gbc.insets = new Insets(5, 30, 5, 10);
+        gbc.insets = new Insets(5, 50, 5, 10);
         optionalField.setBorder(new LineBorder(MainFrame.extraLightColor,1));
         optionalField.addActionListener(e -> registerButton.doClick());
-        centralPanel.add(optionalField, gbc);
+        add(optionalField, gbc);
 
-        gbc.insets = new Insets(20, 20, 20, 20);
+        gbc.insets = new Insets(20, 0, 0, 10);
 
+        registerButton = new JButton("Register");
+        registerButton.setFont(MainFrame.fontBold.deriveFont(30f));
+        registerButton.setForeground(MainFrame.orange);
+        registerButton.setBackground(LoginPanel.darkGray);
+        registerButton.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+        registerButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                registerButton.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
 
-         registerButton = new JButton("Register");
-        registerButton.setFont(MainFrame.fontBold.deriveFont(20F));
+            @Override
+            public void mouseExited(MouseEvent e) {
+                registerButton.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+            }
+        });
 
         gbc.gridx = 0;
         gbc.gridy = 7;
         gbc.gridwidth = 2;
-        centralPanel.add(registerButton, gbc);
+        add(registerButton, gbc);
 
-         backButton = new JButton("Back to Login");
-        backButton.setFont(MainFrame.fontBold.deriveFont(20F));
+        backButton = new JButton("Back to Login");
+        backButton.setFont(MainFrame.fontBold.deriveFont(30f));
+        backButton.setForeground(MainFrame.orange);
+        backButton.setBackground(LoginPanel.darkGray);
+        backButton.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+        backButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                backButton.setBorder(new LineBorder(MainFrame.orange, 1));
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                backButton.setBorder(new LineBorder(LoginPanel.extraLightGray, 1));
+            }
+        });
 
         gbc.gridy = 8;
-        centralPanel.add(backButton, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        add(centralPanel, gbc);
+        add(backButton, gbc);
 
         ActionListener radioActionListener = e -> {
             if (chooseEmployeeButton.isSelected() || chooseManagerButton.isSelected()) {
                 optionalField.setEnabled(true);
+                optionalField.setText(" Enter code");
+                if (chooseEmployeeButton.isSelected())
+                    chooseEmployeeButton.setForeground(MainFrame.orange);
+                else
+                    chooseManagerButton.setForeground(MainFrame.orange);
             } else {
                 optionalField.setEnabled(false);
+                optionalField.setText("");
+                chooseEmployeeButton.setForeground(new Color(207, 212, 199));
+                chooseManagerButton.setForeground(new Color(207, 212, 199));
             }
         };
 
@@ -329,7 +459,8 @@ public class RegisterPanel extends JPanel {
         JLabel label = new JLabel(message);
         gbc.gridx = gridx;
         gbc.gridy = gridy;
-        label.setFont(MainFrame.fontRegular.deriveFont(20F));
+        label.setFont(MainFrame.fontBold.deriveFont(30f));
+        label.setForeground(MainFrame.orange);
         return label;
     }
     public static int passwordCheck(String password) {

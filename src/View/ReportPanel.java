@@ -1,6 +1,6 @@
 package View;
 import Model.Meal;
-import com.formdev.flatlaf.FlatDarkLaf ;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;

@@ -4,10 +4,7 @@ import com.formdev.flatlaf.FlatDarkLaf ;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -48,9 +45,9 @@ public class MainFrame extends JFrame {
     }
 
     // colors
-    private static Color orange = new Color(206, 129, 76);
-    private static Color green = new Color(112, 158, 109);
-    private static Color red = new Color(214, 82, 83);
+    public static Color orange = new Color(206, 129, 76);
+    public static Color green = new Color(112, 158, 109);
+    public static Color red = new Color(214, 82, 83);
     public static Color darkBackground = new Color(30, 31, 34) ;
     public static Color lightBackground = new Color(43, 45, 48) ;
     public static Color extraLightColor = new Color(57, 59, 64) ;
@@ -75,7 +72,6 @@ public class MainFrame extends JFrame {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("creating main frame");
         CardLayout cardLayout1 = new CardLayout();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);

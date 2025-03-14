@@ -7,4 +7,3 @@ siniyah bl furn&@chicken, spices&@50.0&@src/pics/6.jpg&@
 burger&@bread, beef, tomato, cheese&@2.0&@src/pics/7.jpg&@
 avocado with eggs&@look at the meal name&@7.3&@src/pics/8.jpg&@
 magical soup&@it's a surprise !&@4.0&@src/pics/9.jpg&@
-sheeeeeesh&@chicken breast maybe and yummy spices&@5.0&@src/pics/10.jpg&@
