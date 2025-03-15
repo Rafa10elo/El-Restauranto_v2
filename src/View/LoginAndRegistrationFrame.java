@@ -25,7 +25,6 @@ public class LoginAndRegistrationFrame extends JFrame {
         }
     }
 
-
     public LoginAndRegistrationFrame(){
         try {
             UIManager.setLookAndFeel(new FlatDarkLaf());
@@ -59,21 +58,28 @@ public class LoginAndRegistrationFrame extends JFrame {
         add(leftPic, BorderLayout.EAST);
 
         // the right panel : right pic + label
-        JPanel rightPanel = new JPanel();
-        rightPanel.setLayout(new BorderLayout());
+        JPanel rightPane = new JPanel();
+        rightPane.setPreferredSize(new Dimension(780, this.getHeight()));
+        rightPane.setBackground(LoginPanel.darkGray);
+        rightPane.setLayout(null);
+
+        JLabel l = new JLabel("EL-RESTAURANTO");
+        l.setFont(MainFrame.fontBold.deriveFont(70f));
+        l.setBackground(LoginPanel.darkGray);
+        l.setForeground(MainFrame.orange);
+        l.setBounds(250, 100, 350, 60);
+        rightPane.add(l);
 
         JButton rightPic = new JButton(new ImageIcon("C:/Users/Lenovo/Desktop/Untitled-2.png")); // 780
-        rightPic.setPreferredSize(new Dimension(780, this.getHeight()));
+        rightPic.setBounds(0, 0, 780, this.getHeight());
         rightPic.setUI(new BasicButtonUI());
         rightPic.setBorderPainted(false);
-        rightPic.setBackground(MainFrame.darkBackground);
-        rightPanel.add(rightPic, BorderLayout.CENTER);
+        rightPic.setFocusable(false);
+        rightPic.setFocusPainted(false);
+        rightPic.setOpaque(false);
+        rightPane.add(rightPic);
 
-        JLabel l = new JLabel("hhiiiiiiiiiiiiiiiiiiii");
-        l.setBackground(MainFrame.mainColor);
-//        rightPanel.add(l);
-
-        add(rightPanel, BorderLayout.WEST);
+        add(rightPane, BorderLayout.WEST);
 
         revalidate();
         repaint();
