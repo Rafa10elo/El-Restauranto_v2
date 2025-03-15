@@ -51,7 +51,7 @@ public class LoginAndRegistrationFrame extends JFrame {
         add(mainPanel, BorderLayout.CENTER);
 
         // the left pic
-        JButton leftPic = new JButton(new ImageIcon("C:/Users/Lenovo/Desktop/Untitled-3.png"));
+        JButton leftPic = new JButton(new ImageIcon("src/View/FontsAndIcons/leftPic.png"));
         leftPic.setUI(new BasicButtonUI());
         leftPic.setBorderPainted(false);
         leftPic.setBackground(MainFrame.darkBackground);
@@ -70,7 +70,7 @@ public class LoginAndRegistrationFrame extends JFrame {
         l.setBounds(250, 100, 350, 60);
         rightPane.add(l);
 
-        JButton rightPic = new JButton(new ImageIcon("C:/Users/Lenovo/Desktop/Untitled-2.png")); // 780
+        JButton rightPic = new JButton(new ImageIcon("src/View/FontsAndIcons/rightPic.png")); // 780
         rightPic.setBounds(0, 0, 780, this.getHeight());
         rightPic.setUI(new BasicButtonUI());
         rightPic.setBorderPainted(false);
