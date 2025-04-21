@@ -167,7 +167,6 @@ public class MealsPanel extends JPanel {
 
                     deleteDialog.setSize(new Dimension(450, 200));
                     deleteDialog.setLocationRelativeTo(null);
-                    // -------------------------------------------------------------------------------Modal ?????!!!!!!
                     deleteDialog.setModal(false);
                     deleteDialog.getContentPane().setBackground(MainFrame.darkBackground);
                     deleteDialog.setLayout(new GridBagLayout());
@@ -222,10 +221,6 @@ public class MealsPanel extends JPanel {
                     delete.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-//                            float newTotalPrice = Float.parseFloat(sidePanel.totalPrice.getText()) - meal.getPrice() * sidePanel.orderMeals.get(meal) ;
-//                            sidePanel.totalPriceNumber -= meal.getPrice() * sidePanel.orderMeals.get(meal);
-//                            System.out.println(Double.min(sidePanel.totalPriceNumber, meal.getPrice() * sidePanel.orderMeals.get(meal)));
-//                            sidePanel.totalPriceNumber = Double.sum(sidePanel.totalPriceNumber, meal.getPrice() * sidePanel.orderMeals.get(meal) * (-1)) ;
                             sidePanel.totalPriceNumber = sidePanel.totalPriceNumber.subtract(BigDecimal.valueOf(meal.getPrice() * sidePanel.orderMeals.get(meal)));
                             System.out.println(sidePanel.totalPriceNumber);
                             sidePanel.totalPrice.setText(String.valueOf( sidePanel.totalPriceNumber ));
@@ -252,8 +247,6 @@ public class MealsPanel extends JPanel {
 
         sidePanel.centerPanel.add(mealPanel) ;
         sidePanel.centerPanel.add(smallGap) ;
-//        sidePanel.totalPriceNumber += meal.getPrice();
-//        sidePanel.totalPriceNumber = Double.sum(sidePanel.totalPriceNumber, meal.getPrice()) ;
         sidePanel.totalPriceNumber = sidePanel.totalPriceNumber.add(BigDecimal.valueOf(meal.getPrice())) ;
         sidePanel.totalPrice.setText(String.valueOf( sidePanel.totalPriceNumber)) ;
         sidePanel.revalidate();

@@ -26,17 +26,17 @@ public class LoginAndRegistrationFrame extends JFrame {
     }
 
     public LoginAndRegistrationFrame(){
-        try {
+        try{
             UIManager.setLookAndFeel(new FlatDarkLaf());
         } catch (Exception e) {
-            System.out.println("Failed to initialize FlatLaf");
+            System.out.println("hi");
         }
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH); // 1550 x 878
         setLocationRelativeTo(null);
-        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+        setVisible(true);
 
         // cardLayout for login and register panels
         cardLayout = new CardLayout();

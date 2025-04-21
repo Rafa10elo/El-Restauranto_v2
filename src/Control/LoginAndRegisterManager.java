@@ -1,12 +1,14 @@
 package Control;
 
 import Model.*;
+import View.CustomDialog;
 import View.LoginAndRegistrationFrame;
 import View.RegisterPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.*;
 
 public class LoginAndRegisterManager {
     private User user;
@@ -98,7 +100,8 @@ public class LoginAndRegisterManager {
        {
            if(users.isCorrectPassword(user,password))
            {
-               JOptionPane.showMessageDialog(loginAndRegistrationFrame, "successfully logged in", "success", JOptionPane.INFORMATION_MESSAGE);
+//               JOptionPane.showMessageDialog(loginAndRegistrationFrame, "successfully logged in", "success", JOptionPane.INFORMATION_MESSAGE);
+               CustomDialog.createInformationDialog(null, "Successfully logged in !", "ok :)");
               return user;
            }
            else
